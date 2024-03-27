@@ -12,6 +12,8 @@
         <module>learnhub-user</module>
         <module>learnhub-gateway</module>
         <module>learnhub-auth</module>
+        <module>learnhub-auth/learnhub-auth-gateway-sdk</module>
+        <module>learnhub-common</module>
     </modules>
 
     <!-- 继承 Spring Boot 父工程 -->
@@ -31,6 +33,8 @@
         <mysql.version>8.0.23</mysql.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
+        <knife4j.version>4.4.0</knife4j.version>
+        <hutool.version>5.8.25</hutool.version>
     </properties>
 
     <!-- 对依赖包进行管理 -->
@@ -73,11 +77,17 @@
             <artifactId>lombok</artifactId>
             <version>${org.projectlombok.version}</version>
         </dependency>
-        <!--单元测试-->
+        <!-- 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- knife4j接口文档   -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
         </dependency>
     </dependencies>
 
