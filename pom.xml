@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.learnhub</groupId>
-    <artifactId>Learnhub-Cloud</artifactId>
+    <groupId>com.learnhub</groupId>
+    <artifactId>learnhub-cloud</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>learnhub-user</module>
         <module>learnhub-gateway</module>
         <module>learnhub-auth</module>
-        <module>learnhub-auth/learnhub-auth-gateway-sdk</module>
         <module>learnhub-common</module>
+        <module>learnhub-api</module>
     </modules>
 
     <!-- 继承 Spring Boot 父工程 -->
@@ -30,11 +30,12 @@
         <spring-cloud.version>2022.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
-        <mysql.version>8.0.23</mysql.version>
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mysql.version>8.0.33</mysql.version>
+        <mybatis.version>3.0.3</mybatis.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <knife4j.version>4.4.0</knife4j.version>
         <hutool.version>5.8.25</hutool.version>
+
     </properties>
 
     <!-- 对依赖包进行管理 -->
@@ -61,12 +62,13 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
-            <!-- mybatis plus 管理 -->
+            <!-- mybatis -->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

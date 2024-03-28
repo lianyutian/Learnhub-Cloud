@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.learnhub</groupId>
-        <artifactId>learnhub-cloud</artifactId>
+        <artifactId>learnhub-auth</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>learnhub-common</artifactId>
-    <description>通用工具包</description>
+    <artifactId>learnhub-auth-service</artifactId>
+    <description>认证服务</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,12 +19,10 @@
     </properties>
 
     <dependencies>
-        <!-- hutool工具包 -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
+            <groupId>com.learnhub</groupId>
+            <artifactId>learnhub-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
 </project>

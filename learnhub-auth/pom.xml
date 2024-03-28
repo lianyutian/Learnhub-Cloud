@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.github.learnhub</groupId>
-        <artifactId>Learnhub-Cloud</artifactId>
+        <groupId>com.learnhub</groupId>
+        <artifactId>learnhub-cloud</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -14,6 +14,8 @@
     <description>认证授权模块</description>
     <modules>
         <module>learnhub-auth-common</module>
+        <module>learnhub-auth-gateway-sdk</module>
+        <module>learnhub-auth-service</module>
     </modules>
 
     <properties>
@@ -21,5 +23,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 </project>

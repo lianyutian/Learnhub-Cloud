@@ -9,7 +9,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>learnhub-gateway</artifactId>
+    <artifactId>learnhub-api</artifactId>
+    <description>Feign接口公共包</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,8 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <groupId>com.learnhub</groupId>
+            <artifactId>learnhub-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!-- Nacos 服务发现 -->
         <dependency>
