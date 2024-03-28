@@ -2,21 +2,24 @@ package com.learnhub.user.service.impl;
 
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
+import com.learnhub.common.enums.UserType;
 import com.learnhub.common.exceptions.BadRequestException;
 import com.learnhub.common.exceptions.ForbiddenException;
 import com.learnhub.common.utils.AssertUtils;
 import com.learnhub.common.utils.StringUtils;
 import com.learnhub.user.domain.po.User;
+import com.learnhub.user.domain.po.UserDetail;
 import com.learnhub.user.enums.UserStatus;
 import com.learnhub.user.mapper.UserMapper;
+import com.learnhub.user.service.IUserDetailService;
 import com.learnhub.user.service.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.learnhub.user.constants.UserErrorInfo.Msg.INVALID_UN;
-import static com.learnhub.user.constants.UserErrorInfo.Msg.INVALID_UN_OR_PW;
-import static com.learnhub.user.constants.UserErrorInfo.Msg.USER_FROZEN;
+import static com.learnhub.user.constants.UserConstants.STUDENT_ROLE_ID;
+import static com.learnhub.user.constants.UserConstants.TEACHER_ROLE_ID;
+import static com.learnhub.user.constants.UserErrorInfo.Msg.*;
 
 /**
  * @author liming
@@ -29,6 +32,7 @@ public class UserServiceImpl implements IUserService {
 
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final IUserDetailService userDetailService;
 
     @Override
     public LoginUserDTO queryLoginUser(LoginFormDTO loginDTO, boolean isStaff) {
@@ -38,10 +42,6 @@ public class UserServiceImpl implements IUserService {
         // 2.用户名和密码登录
         if (type == 1) {
             user = loginByPw(loginDTO);
-        }
-        // 3.验证码登录
-        if (type == 2) {
-            user = loginByVerifyCode(loginDTO.getCellPhone(), loginDTO.getPassword());
         }
         // 4.错误的登录方式
         if (user == null) {
@@ -79,4 +79,23 @@ public class UserServiceImpl implements IUserService {
 
         return user;
     }
+
+    private Long handleRoleId(User user) {
+        Long roleId = 0L;
+        switch (user.getType()) {
+            case STUDENT:
+                roleId = STUDENT_ROLE_ID;
+                break;
+            case TEACHER:
+                roleId = TEACHER_ROLE_ID;
+                break;
+            case STAFF:
+                roleId = userDetailService.queryUserRoleIdById(user.getId());
+                break;
+            default:
+                break;
+        }
+        return roleId;
+    }
+
 }

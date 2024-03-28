@@ -2,7 +2,7 @@ package com.learnhub.common.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.IterUtil;
-import com.github.learnhub.common.validate.Checker;
+
 
 import java.util.Collection;
 import java.util.Collections;
@@ -81,36 +81,36 @@ public class CollUtils extends CollectionUtil {
         return sb.deleteCharAt(sb.length() - 1).toString();
     }
 
-    /**
-     * 集合校验逻辑
-     *
-     * @param data    要校验的集合
-     * @param checker 校验器
-     * @param <T>     集合元素类型
-     */
-    public static <T> void check(List<T> data, Checker<T> checker) {
-        if (data == null) {
-            return;
-        }
-        for (T t : data) {
-            checker.check(t);
-        }
-    }
-
-    /**
-     * 集合校验逻辑
-     *
-     * @param data 要校验的集合
-     * @param <T>  集合元素类型
-     */
-    public static <T extends Checker<T>> void check(List<T> data) {
-        if (data == null) {
-            return;
-        }
-        for (T t : data) {
-            t.check();
-        }
-    }
+//    /**
+//     * 集合校验逻辑
+//     *
+//     * @param data    要校验的集合
+//     * @param checker 校验器
+//     * @param <T>     集合元素类型
+//     */
+//    public static <T> void check(List<T> data, Checker<T> checker) {
+//        if (data == null) {
+//            return;
+//        }
+//        for (T t : data) {
+//            checker.check(t);
+//        }
+//    }
+//
+//    /**
+//     * 集合校验逻辑
+//     *
+//     * @param data 要校验的集合
+//     * @param <T>  集合元素类型
+//     */
+//    public static <T extends Checker<T>> void check(List<T> data) {
+//        if (data == null) {
+//            return;
+//        }
+//        for (T t : data) {
+//            t.check();
+//        }
+//    }
 
     /**
      * 将元素加入到集合中，为null的过滤掉

@@ -1,4 +1,4 @@
-package com.learnhub.config;
+package com.learnhub.authsdk.gateway.config;
 
 import org.springframework.context.annotation.Configuration;
 

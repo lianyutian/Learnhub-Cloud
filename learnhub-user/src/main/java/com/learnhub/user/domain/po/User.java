@@ -1,5 +1,6 @@
 package com.learnhub.user.domain.po;
 
+import com.learnhub.common.enums.UserType;
 import com.learnhub.user.enums.UserStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,13 +1,13 @@
 package com.learnhub.common.utils;
 
-import com.github.learnhub.common.constants.Constant;
+import com.learnhub.common.constants.Constant;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Map;
 
@@ -65,7 +65,7 @@ public class WebUtils {
         return getRequest().getHeader(headerName);
     }
 
-    public static void setResponseHeader(String key, String value){
+    public static void setResponseHeader(String key, String value) {
         HttpServletResponse response = getResponse();
         if (response == null) {
             return;
@@ -112,15 +112,15 @@ public class WebUtils {
      * @param queries
      * @return
      */
-    public  static <T> String getParameters(final Map<String, T> queries) {
+    public static <T> String getParameters(final Map<String, T> queries) {
         StringBuffer buffer = new StringBuffer();
         for (Map.Entry<String, T> entry : queries.entrySet()) {
-            if(entry.getValue() instanceof String[]){
-                buffer.append(entry.getKey()).append(String.join(",", ((String[])entry.getValue())))
+            if (entry.getValue() instanceof String[]) {
+                buffer.append(entry.getKey()).append(String.join(",", ((String[]) entry.getValue())))
                         .append("&");
-            }else if(entry.getValue() instanceof Collection){
+            } else if (entry.getValue() instanceof Collection) {
                 buffer.append(entry.getKey()).append(
-                        CollUtils.join(((Collection<String>)entry.getValue()),",")
+                        CollUtils.join(((Collection<String>) entry.getValue()), ",")
                 ).append("&");
             }
         }
@@ -130,24 +130,24 @@ public class WebUtils {
     /**
      * 获取请求url中的uri
      *
-     * @param url
-     * @return
+     * @param url url
+     * @return uri
      */
-    public static String getUri(String url){
-        if(StringUtils.isEmpty(url)) {
+    public static String getUri(String url) {
+        if (StringUtils.isEmpty(url)) {
             return null;
         }
 
         String uri = url;
         //uri中去掉 http:// 或者https
-        if(uri.contains("http://") ){
+        if (uri.contains("http://")) {
             uri = uri.replace("http://", StringUtils.EMPTY);
-        }else if(uri.contains("https://")){
+        } else if (uri.contains("https://")) {
             uri = uri.replace("https://", StringUtils.EMPTY);
         }
-
-        int endIndex = uri.length(); //uri 在url中的最后一个字符的序号+1
-        if(uri.contains("?")){
+        //uri 在url中的最后一个字符的序号+1
+        int endIndex = uri.length();
+        if (uri.contains("?")) {
             endIndex = uri.indexOf("?");
         }
         return uri.substring(uri.indexOf("/"), endIndex);
@@ -161,7 +161,7 @@ public class WebUtils {
         return request.getRemoteAddr();
     }
 
-    public static CookieBuilder cookieBuilder(){
+    public static CookieBuilder cookieBuilder() {
         return new CookieBuilder(getRequest(), getResponse());
     }
 }

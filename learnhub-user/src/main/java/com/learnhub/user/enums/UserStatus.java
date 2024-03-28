@@ -1,5 +1,7 @@
 package com.learnhub.user.enums;
 
+import com.learnhub.common.exceptions.BadRequestException;
+import com.learnhub.user.constants.UserErrorInfo;
 import lombok.Getter;
 
 /**

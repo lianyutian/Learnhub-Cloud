@@ -1,12 +1,12 @@
 package com.learnhub.common.utils;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -46,11 +46,7 @@ public class CookieBuilder {
             return;
         }
         Cookie cookie = null;
-        try {
-            cookie = new Cookie(name, URLEncoder.encode(value, charset.toString()));
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage(), e);
-        }
+        cookie = new Cookie(name, URLEncoder.encode(value, charset));
         if (StringUtils.isNotBlank(domain)) {
             cookie.setDomain(domain);
         } else if (request != null) {
@@ -73,11 +69,6 @@ public class CookieBuilder {
      * @return 解码后的值
      */
     public String decode(String cookieValue) {
-        try {
-            return URLDecoder.decode(cookieValue, charset.toString());
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage(), e);
-            return "";
-        }
+        return URLDecoder.decode(cookieValue, charset);
     }
 }
