@@ -1,12 +1,14 @@
 package com.learnhub.user.mapper;
 
 import com.learnhub.user.domain.po.User;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author liming
  * @version 1.0
  * @since 2024/3/28 17:35
  */
+@Mapper
 public interface UserMapper {
     /**
      * 根据用户名或者手机号查询用户

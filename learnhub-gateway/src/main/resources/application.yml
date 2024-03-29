@@ -1,0 +1,20 @@
+server:
+  port: 10010  #端口
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: us
+          uri: lb://user-service
+          predicates:
+            - Path=/us/**
+
+      default-filters:
+        - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
+learnhub:
+  auth:
+    excludePath:

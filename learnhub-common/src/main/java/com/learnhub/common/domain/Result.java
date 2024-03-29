@@ -21,6 +21,8 @@ public class Result<T> {
     private String msg;
     @Schema(name = "响应数据")
     private T data;
+    @Schema(name = "请求id", example = "1af123c11412e")
+    private String requestId;
 
     public static Result<Void> ok() {
         return new Result<Void>(SUCCESS, OK, null);
@@ -50,5 +52,10 @@ public class Result<T> {
 
     public boolean success() {
         return code == SUCCESS;
+    }
+
+    public Result<T> requestId(String requestId) {
+        this.requestId = requestId;
+        return this;
     }
 }

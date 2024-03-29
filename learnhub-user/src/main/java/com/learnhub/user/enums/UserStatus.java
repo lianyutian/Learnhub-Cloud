@@ -1,5 +1,6 @@
 package com.learnhub.user.enums;
 
+import com.learnhub.common.enums.BaseEnum;
 import com.learnhub.common.exceptions.BadRequestException;
 import com.learnhub.user.constants.UserErrorInfo;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.Getter;
  * @since 2024/3/28 15:06
  */
 @Getter
-public enum UserStatus {
+public enum UserStatus implements BaseEnum {
     /**
      * 用户状态
      */

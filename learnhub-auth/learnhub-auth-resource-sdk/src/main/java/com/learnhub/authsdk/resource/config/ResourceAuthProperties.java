@@ -13,7 +13,18 @@ import java.util.List;
 @Data
 @ConfigurationProperties(prefix = "learnhub.auth.resource")
 public class ResourceAuthProperties {
+    /**
+     * 是否开启登录拦截功能，如果开启则需要指定拦截路径，默认拦截所有
+     */
     private Boolean enable = false;
+
+    /**
+     * 要拦截的路径，例如：/user/**
+     */
     private List<String> includeLoginPaths;
+
+    /**
+     * 不拦截的路径，例如：/user/**
+     */
     private List<String> excludeLoginPaths;
 }

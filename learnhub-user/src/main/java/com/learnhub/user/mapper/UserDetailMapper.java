@@ -1,12 +1,14 @@
 package com.learnhub.user.mapper;
 
 import com.learnhub.user.domain.po.UserDetail;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author : [lm]
  * @version : [v1.0]
  * @createTime : [2024/3/28 20:05]
  */
+@Mapper
 public interface UserDetailMapper {
 
     /**

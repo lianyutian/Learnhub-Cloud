@@ -33,7 +33,7 @@ public class UserController {
      * @param isStaff 是否是后台登录
      * @return 登录用户信息
      */
-    @Operation(hidden = true)
+    @Operation(summary = "登录接口")
     @PostMapping("/queryLoginUser/{isStaff}")
     public LoginUserDTO queryLoginUser(
             @Valid @RequestBody LoginFormDTO loginDTO, @PathVariable("isStaff") boolean isStaff) {
