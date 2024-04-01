@@ -17,4 +17,17 @@ public interface IAccountService {
      * @return 登录结果
      */
     String loginByPw(LoginFormDTO loginFormDTO, boolean isAdmin);
+
+    /**
+     * 退出登录
+     */
+    void logout();
+
+    /**
+     * 刷新token
+     *
+     * @param token token
+     * @return 刷新后token
+     */
+    String refreshToken(String token);
 }
