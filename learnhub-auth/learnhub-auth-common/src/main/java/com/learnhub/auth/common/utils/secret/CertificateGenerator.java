@@ -59,7 +59,8 @@ public class CertificateGenerator {
                 new X500Name("CN=localhost"),
                 BigInteger.valueOf(System.currentTimeMillis()),
                 new Date(System.currentTimeMillis() - 1000L * 60 * 60 * 24 * 30),
-                new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 365 * 10)), // 10 years
+                // 10 years
+                new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 365 * 10)),
                 new X500Name(subjectDN),
                 keyPair.getPublic());
 

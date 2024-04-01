@@ -24,6 +24,7 @@
             <artifactId>learnhub-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- Nacos start ==================================================================== -->
         <!-- Nacos 服务发现 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -34,6 +35,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
+        <!-- Nacos 服务配置管理 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!-- Nacos end ==================================================================== -->
         <!-- 服务发现：OpenFeign服务调用 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

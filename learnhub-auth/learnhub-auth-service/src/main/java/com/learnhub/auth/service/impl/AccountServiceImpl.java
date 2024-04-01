@@ -4,6 +4,7 @@ import com.learnhub.api.client.UserClient;
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.auth.common.constants.JwtConstants;
 import com.learnhub.auth.service.IAccountService;
+import com.learnhub.auth.service.ILoginRecordService;
 import com.learnhub.auth.utils.JwtTool;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.common.exceptions.BadRequestException;
@@ -23,11 +24,12 @@ public class AccountServiceImpl implements IAccountService {
 
     private final UserClient userClient;
     private final JwtTool jwtTool;
+    private final ILoginRecordService loginRecordService;
 
     @Override
     public String loginByPw(LoginFormDTO loginFormDTO, boolean isStaff) {
         // 1.查询并校验用户信息
-        LoginUserDTO loginUserDTO = userClient.queryUserDetail(loginFormDTO, isStaff);
+        LoginUserDTO loginUserDTO = userClient.queryLoginUser(loginFormDTO, isStaff);
         if (loginUserDTO == null) {
             throw new BadRequestException("登录信息有误");
         }
@@ -37,7 +39,7 @@ public class AccountServiceImpl implements IAccountService {
         // 2.2.生成token
         String token = generateToken(loginUserDTO);
         // 3.计入登录信息表
-        //loginRecordService.loginSuccess(loginFormDTO.getCellPhone(), loginUserDTO.getUserId());
+        loginRecordService.saveLoginSuccessRecord(loginFormDTO.getCellPhone(), loginUserDTO.getUserId());
         // 4.返回结果
         return token;
     }

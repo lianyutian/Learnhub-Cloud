@@ -1,6 +1,14 @@
 server:
   port: 10010  #端口
 spring:
+  redis:
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 1
+        max-wait: 300
   profiles:
     active: dev
   application:
@@ -15,6 +23,12 @@ spring:
 
       default-filters:
         - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
+
 learnhub:
   auth:
     excludePath:
+      - /error/**
+      - /jwks
+      - /accounts/login
+      - /accounts/admin/login
+      - /accounts/refresh

@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        group: learnhub-cloud
+        server-addr: 127.0.0.1:8848
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}  # 监听 DEFAULT_GROUP:user-service.yml
+logging:
+  level:
+    com.learnhub: debug

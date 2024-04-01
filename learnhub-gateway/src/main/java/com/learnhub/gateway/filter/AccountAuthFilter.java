@@ -1,9 +1,9 @@
 package com.learnhub.gateway.filter;
 
+import com.learnhub.authsdk.gateway.config.AuthProperties;
 import com.learnhub.authsdk.gateway.utils.AuthUtil;
 import com.learnhub.common.domain.Result;
 import com.learnhub.common.domain.dto.LoginUserDTO;
-import com.learnhub.gateway.config.AuthProperties;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.auth.mapper.LoginRecordMapper">
+
+    <insert id="saveLoginSuccessRecord">
+        insert into login_record(user_id, cell_phone, login_time, login_date, ipv4)
+        values (#{userId}, #{cellPhone}, #{loginTime}, #{loginDate}, #{ipv4})
+    </insert>
+
+</mapper>

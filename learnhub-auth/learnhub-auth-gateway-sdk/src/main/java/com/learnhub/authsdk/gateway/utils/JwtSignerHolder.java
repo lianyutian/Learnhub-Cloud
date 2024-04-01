@@ -8,6 +8,7 @@ import cn.hutool.jwt.signers.JWTSigner;
 import cn.hutool.jwt.signers.JWTSignerUtil;
 import com.learnhub.auth.common.constants.JwtConstants;
 import com.learnhub.common.utils.CollUtils;
+import com.learnhub.common.utils.MarkedRunnable;
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,7 @@ public class JwtSignerHolder {
     @PostConstruct
     public void init() {
         // 尝试获取jwk秘钥
-        //ses.submit(new MarkedRunnable(new JwkTask(discoveryClient)));
+        ses.submit(new MarkedRunnable(new JwkTask(discoveryClient)));
     }
 
     public void shutdown() {
