@@ -20,6 +20,13 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
+/**
+ * 密钥库生成工具类
+ *
+ * @author : [lm]
+ * @version : [v1.0]
+ * @createTime : [2024/3/27 19:40]
+ */
 public class CertificateGenerator {
 
     public static void main(String[] args) throws Exception {

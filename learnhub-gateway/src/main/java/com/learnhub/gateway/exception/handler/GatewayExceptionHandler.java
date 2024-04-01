@@ -5,9 +5,12 @@ import com.learnhub.common.domain.Result;
 import com.learnhub.common.exceptions.CommonException;
 import com.learnhub.common.exceptions.UnauthorizedException;
 import com.learnhub.common.utils.JsonUtils;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -31,6 +34,7 @@ import static com.learnhub.common.constants.ErrorInfo.Msg.SERVER_INTER_ERROR;
  */
 @Slf4j
 @Component
+@AllArgsConstructor
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler, Ordered {
 
     @Override
