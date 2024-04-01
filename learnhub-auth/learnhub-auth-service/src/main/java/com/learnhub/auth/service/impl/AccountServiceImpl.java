@@ -42,6 +42,27 @@ public class AccountServiceImpl implements IAccountService {
         return token;
     }
 
+    @Override
+    public void logout() {
+        // 删除jti
+        jwtTool.cleanJtiCache();
+        // 删除cookie
+        WebUtils.cookieBuilder()
+                .name(JwtConstants.REFRESH_HEADER)
+                .value("")
+                .maxAge(0)
+                .httpOnly(true)
+                .build();
+    }
+
+    @Override
+    public String refreshToken(String token) {
+        // 1.校验refresh-token,校验JTI
+        LoginUserDTO userDTO = jwtTool.parseRefreshToken(token);
+        // 2.生成新的access-token、refresh-token
+        return generateToken(userDTO);
+    }
+
     private String generateToken(LoginUserDTO detail) {
         // 2.2.生成access-token
         String token = jwtTool.createToken(detail);

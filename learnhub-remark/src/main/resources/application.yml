@@ -1,0 +1,23 @@
+server:
+  port: 8083  #端口
+  tomcat:
+    uri-encoding: UTF-8   #服务编码
+spring:
+  profiles:
+    active: dev
+  application:
+    name: remark-service
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: com.learnhub.common.mybatis.AutoGenericEnumTypeHandler
+learnhub:
+  auth:
+    resource:
+      enable: true
+      excludeLoginPaths:
+        - /user/queryLoginUser/{isStaff}
+
+
+
