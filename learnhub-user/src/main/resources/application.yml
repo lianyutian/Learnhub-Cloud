@@ -22,7 +22,7 @@ learnhub:
     resource:
       enable: true
       excludeLoginPaths:
-       #- /user/queryLoginUser/{isStaff}
+       - /user/queryLoginUser/{isStaff}
 
 
 

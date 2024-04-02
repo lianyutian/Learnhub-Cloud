@@ -50,9 +50,11 @@ public class CookieBuilder {
         if (StringUtils.isNotBlank(domain)) {
             cookie.setDomain(domain);
         } else if (request != null) {
-            String serverName = request.getServerName();
-            serverName = StringUtils.subAfter(serverName, ".", false);
-            cookie.setDomain("." + serverName);
+//            String serverName = request.getServerName();
+//            serverName = StringUtils.subAfter(serverName, ".", false);
+            String serverName = "learnhub.com";
+            //cookie.setDomain("." + serverName);
+            cookie.setDomain(serverName);
         }
         cookie.setHttpOnly(httpOnly);
         cookie.setMaxAge(maxAge);

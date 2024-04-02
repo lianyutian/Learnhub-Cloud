@@ -51,8 +51,8 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler, Ordere
         String message;
         int code = FAILED;
         if (ex instanceof UnauthorizedException e) {
-            // 登录异常，直接返回状态码
-            return Mono.error(new ResponseStatusException(e.getStatus(), e.getMessage(), e));
+            code = e.getCode();
+            message = e.getMessage();
         } else if (ex instanceof CommonException e) {
             code = e.getCode();
             message = e.getMessage();

@@ -1,6 +1,7 @@
 package com.learnhub.authsdk.resource.interceptors;
 
 import com.learnhub.common.exceptions.BadRequestException;
+import com.learnhub.common.exceptions.UnauthorizedException;
 import com.learnhub.common.utils.UserContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -5,9 +5,12 @@ import com.learnhub.authsdk.gateway.utils.AuthUtil;
 import com.learnhub.common.domain.Result;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.common.exceptions.BadRequestException;
+import com.learnhub.common.exceptions.UnauthorizedException;
+import com.learnhub.common.utils.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -40,10 +43,12 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String method = request.getMethod().name();
         String path = request.getPath().toString();
+        String antPath = method + ":" + path;
 
         // 2.判断是否是无需登录的路径
-        if (isExcludePath(path)) {
+        if (isExcludePath(antPath)) {
             // 直接放行
             return chain.filter(exchange);
         }
@@ -51,6 +56,11 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
         // 3.尝试获取用户信息
         List<String> authHeaders = exchange.getRequest().getHeaders().get(AUTHORIZATION_HEADER);
         String token = authHeaders == null ? "" : authHeaders.get(0);
+
+        if (StringUtils.isBlank(token)) {
+            throw new UnauthorizedException("未登录");
+        }
+
         Result<LoginUserDTO> result = authUtil.parseToken(token);
 
         // 4.如果用户是登录状态，尝试更新请求头，传递用户信息
@@ -61,7 +71,7 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
         }
 
         // 5.校验权限
-        authUtil.checkAuth(path, result);
+        authUtil.checkAuth(antPath, result);
 
         // 6.放行
         return chain.filter(exchange);

@@ -26,14 +26,20 @@ public class WrapperResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (request.getURI().getPath().equals("/v3/api-docs")){
+    public Object beforeBodyWrite(Object body,
+                                  MethodParameter returnType,
+                                  MediaType selectedContentType,
+                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                  ServerHttpRequest request,
+                                  ServerHttpResponse response) {
+
+        if ("/v3/api-docs".equals(request.getURI().getPath())) {
             return body;
         }
         if (body == null) {
             return Result.ok().requestId(MDC.get(Constant.REQUEST_ID_HEADER));
         }
-        if(body instanceof Result){
+        if (body instanceof Result) {
             return body;
         }
         return Result.ok(body).requestId(MDC.get(Constant.REQUEST_ID_HEADER));

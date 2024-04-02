@@ -34,7 +34,7 @@ learnhub:
   auth:
     excludePath:
       - /error/**
-      - /jwks
-      - /accounts/login
-      - /accounts/admin/login
-      - /accounts/refresh
+      - POST:/jwks
+      - POST:/accounts/login
+      - POST:/accounts/admin/login
+      - POST:/accounts/refresh
