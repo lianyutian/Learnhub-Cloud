@@ -31,6 +31,11 @@ mybatis:
     map-underscore-to-camel-case: true
     default-enum-type-handler: com.learnhub.common.mybatis.AutoGenericEnumTypeHandler # 枚举类型处理
 
+learnhub:
+  auth:
+    resource:
+      enable: true
+
 encrypt:
   key-store:
     alias: learnhub                   #别名
