@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author liming
  * @version 1.0
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "登录表单实体", name = "LoginFormDTO")
-public class LoginFormDTO {
+public class LoginFormDTO implements Serializable {
     @Schema(description = "登录方式：1-密码登录; 2-验证码登录", name = "type", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     private Integer type;

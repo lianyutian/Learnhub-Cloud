@@ -47,7 +47,6 @@ public class ResourceInterceptorConfiguration implements WebMvcConfigurer {
         }
         // 2.3.排除swagger路径
         registration.excludePathPatterns(
-                "/error/**",
                 "/v2/**",
                 "/v3/**",
                 "/swagger-resources/**",

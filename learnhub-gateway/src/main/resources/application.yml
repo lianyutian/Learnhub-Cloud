@@ -1,18 +1,21 @@
 server:
   port: 10010  #端口
 spring:
-  redis:
-    host: 127.0.0.1
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 1
-        max-wait: 300
   profiles:
     active: dev
   application:
     name: gateway-service
+  # redis配置 start ====================================================================================================
+  data:
+    redis:
+      host: 127.0.0.1
+      lettuce:
+        pool:
+          max-active: 8 # 最大连接数，负值表示没有限制，默认8
+          max-idle: 8   # 最大空闲连接，默认8
+          min-idle: 1   # 最小空闲连接，默认0
+          max-wait: 300 # 最大阻塞等待时间，负值表示没限制，默认-1
+  # redis配置 end ======================================================================================================
   cloud:
     gateway:
       routes:
@@ -20,7 +23,10 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/us/**
-
+        - id: as
+          uri: lb://auth-service
+          predicates:
+            - Path=/as/**
       default-filters:
         - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
 

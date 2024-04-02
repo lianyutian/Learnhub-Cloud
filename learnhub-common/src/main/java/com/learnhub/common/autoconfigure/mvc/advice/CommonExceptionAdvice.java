@@ -20,6 +20,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,20 +35,19 @@ import java.util.stream.Collectors;
 public class CommonExceptionAdvice {
     @ExceptionHandler(DbException.class)
     public Object handleDbException(DbException e) {
-        log.error("mysql数据库操作异常 -> ", e);
+        log.error("mysql数据库操作异常 -> {}, {}", e.getMessage(), e);
         return processResponse(e.getStatus(), e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(CommonException.class)
     public Object handleBadRequestException(CommonException e) {
         log.error("自定义异常 -> {} , 状态码：{}, 异常原因：{}  ", e.getClass().getName(), e.getStatus(), e.getMessage());
-        log.debug("", e);
         return processResponse(e.getStatus(), e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(FeignException.class)
     public Object handleFeignException(FeignException e) {
-        log.error("feign远程调用异常 -> ", e);
+        log.error("feign远程调用异常 -> {}, {}", e.getMessage(), e);
         return processResponse(e.status(), e.status(), e.contentUTF8());
     }
 
@@ -56,36 +56,37 @@ public class CommonExceptionAdvice {
         String msg = e.getBindingResult().getAllErrors()
                 .stream().map(ObjectError::getDefaultMessage)
                 .collect(Collectors.joining("|"));
-        log.error("请求参数校验异常 -> {}", msg);
-        log.debug("", e);
+        log.error("请求参数校验异常 -> {}, {}", msg, e);
         return processResponse(400, 400, msg);
     }
 
     @ExceptionHandler(BindException.class)
     public Object handleBindException(BindException e) {
-        log.error("请求参数绑定异常 ->BindException， {}", e.getMessage());
-        log.debug("", e);
+        log.error("请求参数绑定异常 ->BindException， {}, {}", e.getMessage(), e);
         return processResponse(400, 400, "请求参数格式错误");
     }
 
     @ExceptionHandler(ServletException.class)
     public Object handleNestedServletException(ServletException e) {
-        log.error("参数异常 -> ServletException，{}", e.getMessage());
-        log.debug("", e);
+        log.error("参数异常 -> ServletException，{}, {}", e.getMessage(), e);
         return processResponse(400, 400, "请求参数异常");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public Object handViolationException(ConstraintViolationException e) {
-        log.error("请求参数异常 -> ConstraintViolationException, {}", e.getMessage());
+        log.error("请求参数异常 -> ConstraintViolationException, {}, {}", e.getMessage(), e);
         return processResponse(HttpStatus.OK.value(), HttpStatus.BAD_REQUEST.value(),
-                e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).distinct().collect(Collectors.joining("|"))
+                e.getConstraintViolations().stream()
+                        .map(ConstraintViolation::getMessage)
+                        .distinct()
+                        .collect(Collectors.joining("|"))
         );
     }
 
     @ExceptionHandler(Exception.class)
     public Object handleRuntimeException(Exception e) {
-        log.error("其他异常 uri : {} -> ", WebUtils.getRequest().getRequestURI(), e);
+        log.error("其他异常 uri : {} -> {}",
+                Objects.requireNonNull(WebUtils.getRequest()).getRequestURI(), e.getMessage(), e);
         return processResponse(500, 500, "服务器内部异常");
     }
 

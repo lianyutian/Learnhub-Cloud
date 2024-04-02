@@ -4,12 +4,15 @@ import com.learnhub.authsdk.gateway.config.AuthProperties;
 import com.learnhub.authsdk.gateway.utils.AuthUtil;
 import com.learnhub.common.domain.Result;
 import com.learnhub.common.domain.dto.LoginUserDTO;
+import com.learnhub.common.exceptions.BadRequestException;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.Assert;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -37,12 +40,10 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String method = request.getMethod().name();
         String path = request.getPath().toString();
-        String antPath = method + ":" + path;
 
         // 2.判断是否是无需登录的路径
-        if (isExcludePath(antPath)) {
+        if (isExcludePath(path)) {
             // 直接放行
             return chain.filter(exchange);
         }
@@ -60,7 +61,7 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
         }
 
         // 5.校验权限
-        authUtil.checkAuth(antPath, result);
+        authUtil.checkAuth(path, result);
 
         // 6.放行
         return chain.filter(exchange);

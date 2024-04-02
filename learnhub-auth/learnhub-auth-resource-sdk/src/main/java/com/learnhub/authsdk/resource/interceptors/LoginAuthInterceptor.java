@@ -1,5 +1,6 @@
 package com.learnhub.authsdk.resource.interceptors;
 
+import com.learnhub.common.exceptions.BadRequestException;
 import com.learnhub.common.utils.UserContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         if (userId == null) {
             response.setStatus(401);
             response.sendError(401, "未登录用户无法访问！");
-            // 2.3.未登录，直接拦截
+            // 2.1.未登录，直接拦截
             return false;
         }
         // 3.登录则放行

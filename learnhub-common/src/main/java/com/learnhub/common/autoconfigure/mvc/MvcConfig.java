@@ -2,15 +2,11 @@ package com.learnhub.common.autoconfigure.mvc;
 
 import com.learnhub.common.autoconfigure.mvc.advice.CommonExceptionAdvice;
 import com.learnhub.common.autoconfigure.mvc.advice.WrapperResponseBodyAdvice;
-import com.learnhub.common.autoconfigure.mvc.converter.WrapperResponseMessageConverter;
 import com.learnhub.common.filters.RequestIdFilter;
 import jakarta.servlet.Filter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author : [lm]
@@ -33,12 +29,12 @@ public class MvcConfig {
         return new RequestIdFilter();
     }
 
-    @Bean
-    @ConditionalOnMissingClass("org.springframework.cloud.gateway.filter.GlobalFilter")
-    public WrapperResponseMessageConverter wrapperResponseMessageConverter(
-            MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
-        return new WrapperResponseMessageConverter(mappingJackson2HttpMessageConverter);
-    }
+//    @Bean
+//    @ConditionalOnMissingClass("org.springframework.cloud.gateway.filter.GlobalFilter")
+//    public WrapperResponseMessageConverter wrapperResponseMessageConverter(
+//            MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter) {
+//        return new WrapperResponseMessageConverter(mappingJackson2HttpMessageConverter);
+//    }
 
     @Bean
     public WrapperResponseBodyAdvice wrapperResponseBodyAdvice() {

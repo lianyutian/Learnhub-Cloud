@@ -8,7 +8,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.jwt.JWT;
 import cn.hutool.jwt.JWTValidator;
-import com.learnhub.auth.common.domain.PrivilegeRoleDTO;
+import com.learnhub.auth.common.domain.dto.PrivilegeRoleDTO;
 import com.learnhub.common.domain.Result;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.common.exceptions.ForbiddenException;

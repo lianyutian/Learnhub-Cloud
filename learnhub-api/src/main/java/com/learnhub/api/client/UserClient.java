@@ -22,6 +22,6 @@ public interface UserClient {
      * @param isStaff 是否是员工
      * @return 用户详情
      */
-    @PostMapping("/users/queryLoginUser/{isStaff}")
+    @PostMapping("/user/queryLoginUser/{isStaff}")
     LoginUserDTO queryLoginUser(@RequestBody LoginFormDTO loginDTO, @PathVariable("isStaff") boolean isStaff);
 }

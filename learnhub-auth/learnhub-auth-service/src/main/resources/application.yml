@@ -7,22 +7,35 @@ spring:
     active: dev
   application:
     name: auth-service
+  # mysql配置 start ====================================================================================================
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/learnhub?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+  # mysql配置 end ======================================================================================================
+  # redis配置 start ====================================================================================================
+  data:
+    redis:
+      host: 127.0.0.1
+      lettuce:
+        pool:
+          max-active: 8 # 最大连接数，负值表示没有限制，默认8
+          max-idle: 8   # 最大空闲连接，默认8
+          min-idle: 1   # 最小空闲连接，默认0
+          max-wait: 300 # 最大阻塞等待时间，负值表示没限制，默认-1
+  # redis配置 end ======================================================================================================
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-    default-enum-type-handler: com.learnhub.common.mybatis.AutoGenericEnumTypeHandler
+    default-enum-type-handler: com.learnhub.common.mybatis.AutoGenericEnumTypeHandler # 枚举类型处理
 
 encrypt:
   key-store:
-    alias: learnhub  #别名
+    alias: learnhub                   #别名
     location: classpath:learnhub.jks  #KeyStore 密钥库
-    password: learnhub123   #密钥库密码
+    password: learnhub123             #密钥库密码
 
 
 
