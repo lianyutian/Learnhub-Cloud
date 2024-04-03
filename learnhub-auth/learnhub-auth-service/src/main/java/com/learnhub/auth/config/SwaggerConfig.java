@@ -1,4 +1,4 @@
-package com.learnhub.user.config;
+package com.learnhub.auth.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SwaggerConfig {
-
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
@@ -22,7 +21,7 @@ public class SwaggerConfig {
                         .title("知学云用户系统API")
                         .contact(new Contact().name("lm"))
                         .version("1.0")
-                        .description("知学云用户服务模块API")
+                        .description("知学云鉴权服务模块API")
                         .license(new License().name("Apache 2.0"))
                 );
     }

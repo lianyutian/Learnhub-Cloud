@@ -35,6 +35,8 @@ learnhub:
   auth:
     resource:
       enable: true
+      exclude-login-paths:
+        - /jwks
 
 encrypt:
   key-store:

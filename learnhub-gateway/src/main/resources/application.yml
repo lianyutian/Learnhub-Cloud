@@ -30,11 +30,26 @@ spring:
       default-filters:
         - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
 
+# 鉴权排除路径
 learnhub:
   auth:
     excludePath:
       - /error/**
-      - POST:/jwks
+      - GET:/v3/**
+      - GET:/doc.html
       - POST:/accounts/login
       - POST:/accounts/admin/login
       - POST:/accounts/refresh
+
+# 聚合 swagger文档
+knife4j:
+  gateway:
+    enabled: true
+    strategy: discover
+    discover:
+      enabled: true
+      version : openapi3
+      excluded-services:
+        - gateway-service
+
+

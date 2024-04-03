@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.learnhub.common.utils.BeanUtils;
 import com.learnhub.common.utils.CollUtils;
 import com.learnhub.common.utils.Convert;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -69,7 +70,7 @@ public class PageDTO<T> {
         return new PageDTO<>(page.getTotal(), page.getPages(), BeanUtils.copyList(page.getResult(), clazz, convert));
     }
 
-    @Schema(hidden = true)
+    @Hidden
     @JsonIgnore
     public boolean isEmpty(){
         return list == null || list.size() == 0;
