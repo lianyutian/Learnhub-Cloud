@@ -1,11 +1,14 @@
 package com.learnhub.user.service.impl;
 
 import com.learnhub.api.dto.user.LoginFormDTO;
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.common.enums.UserType;
 import com.learnhub.common.exceptions.BadRequestException;
+import com.learnhub.common.exceptions.DbException;
 import com.learnhub.common.exceptions.ForbiddenException;
 import com.learnhub.common.utils.AssertUtils;
+import com.learnhub.common.utils.BeanUtils;
 import com.learnhub.common.utils.StringUtils;
 import com.learnhub.user.domain.po.User;
 import com.learnhub.user.domain.po.UserDetail;
@@ -16,7 +19,9 @@ import com.learnhub.user.service.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import static com.learnhub.user.constants.UserConstants.DEFAULT_PASSWORD;
 import static com.learnhub.user.constants.UserConstants.STUDENT_ROLE_ID;
 import static com.learnhub.user.constants.UserConstants.TEACHER_ROLE_ID;
 import static com.learnhub.user.constants.UserErrorInfo.Msg.*;
@@ -58,6 +63,32 @@ public class UserServiceImpl implements IUserService {
         return userDTO;
     }
 
+    @Override
+    @Transactional(rollbackFor = {DbException.class, Exception.class})
+    public Long saveUser(UserDTO userDTO) {
+        UserType type = UserType.of(userDTO.getType());
+        // 1.保存用户基本信息
+        User user = new User();
+        user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
+        user.setCellPhone(userDTO.getCellPhone());
+        user.setUsername(userDTO.getCellPhone());
+        user.setType(type);
+        userMapper.saveUser(user);
+        // 2.新增详情
+        UserDetail detail = BeanUtils.toBean(userDTO, UserDetail.class);
+        detail.setId(user.getId());
+        detail.setType(type);
+        if (type == UserType.TEACHER) {
+            detail.setRoleId(TEACHER_ROLE_ID);
+        } else {
+            if (userDTO.getRoleId() == null) {
+                throw new BadRequestException("员工角色信息不能为空");
+            }
+        }
+        //detailService.save(detail);
+        return user.getId();
+    }
+
     private User loginByPw(LoginFormDTO loginDTO) {
         // 1.数据校验
         String username = loginDTO.getUsername();
@@ -83,17 +114,11 @@ public class UserServiceImpl implements IUserService {
     private Long handleRoleId(User user) {
         Long roleId = 0L;
         switch (user.getType()) {
-            case STUDENT:
-                roleId = STUDENT_ROLE_ID;
-                break;
-            case TEACHER:
-                roleId = TEACHER_ROLE_ID;
-                break;
-            case STAFF:
-                roleId = userDetailService.queryUserRoleIdById(user.getId());
-                break;
-            default:
-                break;
+            case STUDENT -> roleId = STUDENT_ROLE_ID;
+            case TEACHER -> roleId = TEACHER_ROLE_ID;
+            case STAFF -> roleId = userDetailService.queryUserRoleIdById(user.getId());
+            default -> {
+            }
         }
         return roleId;
     }

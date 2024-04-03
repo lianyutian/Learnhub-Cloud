@@ -20,13 +20,20 @@
                cell_phone,
                password,
                status,
-               create_time,
-               update_time,
                type
         from user
         where username = #{username}
           and cell_phone = #{cellPhone}
     </select>
+
+    <insert id="saveUser" >
+        insert into user(username, cell_phone, password, status, type)
+        values (#{username},
+                #{cell_phone},
+                #{password},
+                #{status},
+                #{type})
+    </insert>
 
 
 </mapper>

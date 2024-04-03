@@ -1,9 +1,12 @@
 package com.learnhub.user.controller;
 
 import com.learnhub.api.dto.user.LoginFormDTO;
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.user.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,18 +29,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final IUserService userService;
 
-    /**
-     * 登录
-     *
-     * @param loginDTO 登录表单
-     * @param isStaff 是否是后台登录
-     * @return 登录用户信息
-     */
     @Operation(summary = "登录接口")
     @PostMapping("/queryLoginUser/{isStaff}")
+    @Parameter(name = "isStaff", description = "是否是后台登录")
     public LoginUserDTO queryLoginUser(
             @Valid @RequestBody LoginFormDTO loginDTO, @PathVariable("isStaff") boolean isStaff) {
         return userService.queryLoginUser(loginDTO, isStaff);
+    }
+
+    @Schema(description = "新增用户，一般是员工或教师")
+    @PostMapping
+    public Long saveUser(@Valid @RequestBody UserDTO userDTO){
+        userDTO.setId(null);
+        return userService.saveUser(userDTO);
     }
 
 }

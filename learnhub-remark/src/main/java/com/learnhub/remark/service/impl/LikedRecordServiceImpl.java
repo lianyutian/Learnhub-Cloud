@@ -1,6 +1,6 @@
 package com.learnhub.remark.service.impl;
 
-import com.learnhub.api.dto.user.remark.LikedTimesDTO;
+import com.learnhub.api.dto.remark.LikedTimesDTO;
 import com.learnhub.common.autoconfigure.mq.RabbitMqHelper;
 import com.learnhub.common.utils.StringUtils;
 import com.learnhub.common.utils.UserContext;

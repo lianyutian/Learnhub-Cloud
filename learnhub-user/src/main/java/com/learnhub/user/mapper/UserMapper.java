@@ -18,4 +18,11 @@ public interface UserMapper {
      * @return 用户信息
      */
     User queryUserByNameAndPhone(String username, String cellPhone);
+
+    /**
+     * 保存用户
+     *
+     * @param user 用户
+     */
+    void saveUser(User user);
 }

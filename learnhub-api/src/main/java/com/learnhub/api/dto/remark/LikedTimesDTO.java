@@ -1,4 +1,4 @@
-package com.learnhub.api.dto.user.remark;
+package com.learnhub.api.dto.remark;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

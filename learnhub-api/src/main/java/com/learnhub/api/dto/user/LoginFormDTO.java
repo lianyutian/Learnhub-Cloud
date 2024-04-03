@@ -20,11 +20,11 @@ public class LoginFormDTO implements Serializable {
     @Schema(description = "登录方式：1-密码登录; 2-验证码登录", name = "type", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     private Integer type;
-    @Schema(description = "用户名", name = "username", example = "jack")
+    @Schema(description = "用户名", name = "username", example = "admin")
     private String username;
-    @Schema(description = "手机号", name = "cellPhone", example = "13800010001")
+    @Schema(description = "手机号", name = "cellPhone", example = "13800010002")
     private String cellPhone;
-    @Schema(description = "密码", name = "password", example = "123", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "密码", name = "password", example = "admin", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull
     private String password;
     @Schema(description = "7天免密登录", name = "rememberMe", example = "true")

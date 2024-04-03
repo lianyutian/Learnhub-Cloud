@@ -34,6 +34,7 @@
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <mysql.version>8.0.33</mysql.version>
         <mybatis.version>3.0.3</mybatis.version>
+        <idgenerator.version>1.0.6</idgenerator.version>
         <pagehelper.version>2.1.0</pagehelper.version>
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <knife4j.version>4.4.0</knife4j.version>

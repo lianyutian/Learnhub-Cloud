@@ -1,4 +1,4 @@
-package com.learnhub.common.mybatis;
+package com.learnhub.common.autoconfigure.mybatis;
 
 import com.learnhub.common.enums.BaseEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
