@@ -40,6 +40,7 @@ learnhub:
       - POST:/accounts/login
       - POST:/accounts/admin/login
       - POST:/accounts/refresh
+      - POST:/user/saveUser
 
 # 聚合 swagger文档
 knife4j:

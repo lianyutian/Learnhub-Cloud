@@ -26,10 +26,11 @@
           and cell_phone = #{cellPhone}
     </select>
 
-    <insert id="saveUser" >
-        insert into user(username, cell_phone, password, status, type)
-        values (#{username},
-                #{cell_phone},
+    <insert id="saveUser">
+        insert into user(id, username, cell_phone, password, status, type)
+        values (#{id},
+                #{username},
+                #{cellPhone},
                 #{password},
                 #{status},
                 #{type})

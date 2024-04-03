@@ -17,12 +17,14 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     default-enum-type-handler: com.learnhub.common.autoconfigure.mybatis.AutoGenericEnumTypeHandler
+
 learnhub:
   auth:
     resource:
       enable: true
       excludeLoginPaths:
        - /user/queryLoginUser/{isStaff}
+       - /user/saveUser
 
 
 

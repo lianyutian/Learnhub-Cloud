@@ -22,7 +22,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * mybatis ID自增拦截器
+ * mybatis ID生成拦截器
  *
  * @author liming
  * @version 1.0

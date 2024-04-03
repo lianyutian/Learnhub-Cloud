@@ -76,7 +76,7 @@ public class JwtTool {
                 .setSigner(jwtSigner)
                 .sign();
         // 3.缓存jti，有效期与token一致，过期或删除JTI后，对应的refresh-token失效
-        stringRedisTemplate.opsForValue();
+        stringRedisTemplate.opsForValue().set(JwtConstants.JWT_REDIS_KEY_PREFIX + userDetail.getUserId(), jti, ttl);
         return token;
     }
 

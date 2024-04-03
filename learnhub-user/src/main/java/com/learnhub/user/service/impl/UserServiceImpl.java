@@ -13,6 +13,7 @@ import com.learnhub.common.utils.StringUtils;
 import com.learnhub.user.domain.po.User;
 import com.learnhub.user.domain.po.UserDetail;
 import com.learnhub.user.enums.UserStatus;
+import com.learnhub.user.mapper.UserDetailMapper;
 import com.learnhub.user.mapper.UserMapper;
 import com.learnhub.user.service.IUserDetailService;
 import com.learnhub.user.service.IUserService;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements IUserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final IUserDetailService userDetailService;
+    private final UserDetailMapper userDetailMapper;
 
     @Override
     public LoginUserDTO queryLoginUser(LoginFormDTO loginDTO, boolean isStaff) {
@@ -71,8 +73,9 @@ public class UserServiceImpl implements IUserService {
         User user = new User();
         user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
         user.setCellPhone(userDTO.getCellPhone());
-        user.setUsername(userDTO.getCellPhone());
+        user.setUsername(userDTO.getUsername());
         user.setType(type);
+        user.setStatus(UserStatus.NORMAL);
         userMapper.saveUser(user);
         // 2.新增详情
         UserDetail detail = BeanUtils.toBean(userDTO, UserDetail.class);
@@ -85,7 +88,7 @@ public class UserServiceImpl implements IUserService {
                 throw new BadRequestException("员工角色信息不能为空");
             }
         }
-        //detailService.save(detail);
+        userDetailMapper.saveUserDetail(detail);
         return user.getId();
     }
 

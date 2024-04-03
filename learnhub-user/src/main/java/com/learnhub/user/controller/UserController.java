@@ -4,18 +4,13 @@ import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.user.service.IUserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liming
@@ -29,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final IUserService userService;
 
-    @Operation(summary = "登录接口")
+    @Hidden
+    @Operation(summary = "查询登录用户信息")
     @PostMapping("/queryLoginUser/{isStaff}")
     @Parameter(name = "isStaff", description = "是否是后台登录")
     public LoginUserDTO queryLoginUser(
@@ -37,8 +33,8 @@ public class UserController {
         return userService.queryLoginUser(loginDTO, isStaff);
     }
 
-    @Schema(description = "新增用户，一般是员工或教师")
-    @PostMapping
+    @Operation(summary = "新增用户，一般是员工或教师")
+    @PostMapping("/saveUser")
     public Long saveUser(@Valid @RequestBody UserDTO userDTO){
         userDTO.setId(null);
         return userService.saveUser(userDTO);

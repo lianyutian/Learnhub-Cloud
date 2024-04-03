@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learnhub.user.mapper.UserDetailMapper">
-
-
     <select id="queryUserDetailById" resultType="com.learnhub.user.domain.po.UserDetail">
         SELECT u.cell_phone,
                u.status,
@@ -31,12 +29,42 @@
         WHERE u.id = #{userId}
     </select>
 
-
     <select id="queryUserRoleIdById" resultType="java.lang.Long">
         select role_id
         from user_detail
         where id = #{id}
     </select>
 
-
+    <insert id="saveUserDetail">
+        insert into user_detail(id,
+                                type,
+                                name,
+                                gender,
+                                icon,
+                                email,
+                                qq,
+                                birthday,
+                                job,
+                                province,
+                                city,
+                                district,
+                                intro,
+                                photo,
+                                role_id)
+        values (#{id},
+                #{type},
+                #{name},
+                #{gender},
+                #{icon},
+                #{email},
+                #{qq},
+                #{birthday},
+                #{job},
+                #{province},
+                #{city},
+                #{district},
+                #{intro},
+                #{photo},
+                #{roleId})
+    </insert>
 </mapper>

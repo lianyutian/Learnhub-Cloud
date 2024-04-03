@@ -1,8 +1,8 @@
 package com.learnhub.common.autoconfigure.mybatis;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
+import com.learnhub.common.autoconfigure.mybatis.plugin.AutoIdInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,5 +25,10 @@ public class IdGeneratorConfig {
         // 保存参数（务必调用，否则参数设置不生效）：
         YitIdHelper.setIdGenerator(options);
         return options;
+    }
+
+    @Bean
+    public AutoIdInterceptor autoIdInterceptor() {
+        return new AutoIdInterceptor();
     }
 }

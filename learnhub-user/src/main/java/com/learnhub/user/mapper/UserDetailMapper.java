@@ -26,4 +26,11 @@ public interface UserDetailMapper {
      * @return 角色id
      */
     Long queryUserRoleIdById(Long id);
+
+    /**
+     * 保存用户详情
+     *
+     * @param detail 用户详情
+     */
+    void saveUserDetail(UserDetail detail);
 }
