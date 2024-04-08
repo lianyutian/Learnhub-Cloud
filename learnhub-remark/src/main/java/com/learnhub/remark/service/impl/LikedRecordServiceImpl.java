@@ -1,15 +1,24 @@
 package com.learnhub.remark.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.learnhub.api.dto.remark.LikedTimesDTO;
-import com.learnhub.common.autoconfigure.mq.RabbitMqHelper;
+import com.learnhub.common.autoconfigure.mq.RocketMQEnhanceTemplate;
+import com.learnhub.common.exceptions.DbException;
 import com.learnhub.common.utils.StringUtils;
 import com.learnhub.common.utils.UserContext;
 import com.learnhub.remark.domain.dto.LikeRecordFormDTO;
+import com.learnhub.remark.domain.message.RemarkMessage;
 import com.learnhub.remark.domain.po.LikedRecord;
 import com.learnhub.remark.mapper.LikedRecordMapper;
 import com.learnhub.remark.service.ILikedRecordService;
 import lombok.AllArgsConstructor;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Set;
 
 import static com.learnhub.common.constants.MqConstants.Exchange.LIKE_RECORD_EXCHANGE;
 import static com.learnhub.common.constants.MqConstants.Key.LIKED_TIMES_KEY_TEMPLATE;
@@ -24,9 +33,10 @@ import static com.learnhub.common.constants.MqConstants.Key.LIKED_TIMES_KEY_TEMP
 public class LikedRecordServiceImpl implements ILikedRecordService {
 
     private final LikedRecordMapper likedRecordMapper;
-    private final RabbitMqHelper mqHelper;
+    private final RocketMQEnhanceTemplate rocketMQEnhanceTemplate;
 
     @Override
+    @Transactional(rollbackFor = {DbException.class, Exception.class})
     public void addLikeRecord(LikeRecordFormDTO likeRecordFormDTO) {
         // 1.基于前端的参数，判断是执行点赞还是取消点赞
         boolean success = likeRecordFormDTO.getLiked() ? like(likeRecordFormDTO) : unlike(likeRecordFormDTO);
@@ -35,12 +45,30 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
             return;
         }
         // 3.如果执行成功，统计点赞总数
-        Integer likedTimes = likedRecordMapper.countLikeRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
+        int likes = likedRecordMapper.countLikeRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
         // 4.发送MQ通知
-        mqHelper.send(
+        RemarkMessage remarkMessage = new RemarkMessage();
+        // 设置业务key
+        remarkMessage.setKey(String.valueOf(likeRecordFormDTO.getBizId()));
+        // 设置消息来源，便于查询
+        remarkMessage.setSource("remark");
+        // 业务消息内容
+        remarkMessage.setBizId(likeRecordFormDTO.getBizId());
+        remarkMessage.setLikes(likes);
+
+        rocketMQEnhanceTemplate.send(
                 LIKE_RECORD_EXCHANGE,
                 StringUtils.format(LIKED_TIMES_KEY_TEMPLATE, likeRecordFormDTO.getBizType()),
-                LikedTimesDTO.of(likeRecordFormDTO.getBizId(), likedTimes));
+                remarkMessage
+        );
+    }
+
+    @Override
+    public Set<Long> isBizLiked(List<Long> bizIds) {
+        // 1.获取登录用户id
+        Long userId = UserContext.getUser();
+        // 2.查询点赞状态
+        return likedRecordMapper.queryLikeRecordByBizIds(bizIds, userId);
     }
 
     private boolean like(LikeRecordFormDTO likeRecordFormDTO) {
@@ -64,9 +92,6 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
     }
 
     private boolean unlike(LikeRecordFormDTO likeRecordFormDTO) {
-        if (like(likeRecordFormDTO)) {
-            return likedRecordMapper.deleteLikedRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
-        }
-        return false;
+        return likedRecordMapper.deleteLikedRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
     }
 }

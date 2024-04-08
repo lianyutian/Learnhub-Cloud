@@ -1,6 +1,7 @@
 package com.learnhub.api.config;
 
-import com.learnhub.api.client.fallback.UserClientFallback;
+import com.learnhub.api.client.remark.fallback.RemarkClientFallback;
+import com.learnhub.api.client.user.fallback.UserClientFallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,5 +15,10 @@ public class FallbackConfig {
     @Bean
     public UserClientFallback userClientFallback(){
         return new UserClientFallback();
+    }
+
+    @Bean
+    public RemarkClientFallback remarkClientFallback(){
+        return new RemarkClientFallback();
     }
 }

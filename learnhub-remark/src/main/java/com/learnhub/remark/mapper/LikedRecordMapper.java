@@ -3,6 +3,9 @@ package com.learnhub.remark.mapper;
 import com.learnhub.remark.domain.po.LikedRecord;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author liming
  * @version 1.0
@@ -35,4 +38,13 @@ public interface LikedRecordMapper {
      * @return 删除结果
      */
     boolean deleteLikedRecord(Long userId, Long bizId);
+
+    /**
+     * 查询用户点赞业务
+     *
+     * @param bizIds 业务id
+     * @param userId 用户id
+     * @return 点赞业务集合
+     */
+    Set<Long> queryLikeRecordByBizIds(List<Long> bizIds, Long userId);
 }

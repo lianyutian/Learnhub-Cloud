@@ -1,6 +1,6 @@
-package com.learnhub.api.client;
+package com.learnhub.api.client.user;
 
-import com.learnhub.api.client.fallback.UserClientFallback;
+import com.learnhub.api.client.user.fallback.UserClientFallback;
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import org.springframework.cloud.openfeign.FeignClient;

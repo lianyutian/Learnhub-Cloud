@@ -20,8 +20,10 @@ public interface IAccountService {
 
     /**
      * 退出登录
+     *
+     * @param name headerName
      */
-    void logout();
+    void logout(String name);
 
     /**
      * 刷新token

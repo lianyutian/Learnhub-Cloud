@@ -39,7 +39,7 @@ learnhub:
       - GET:/doc.html
       - POST:/accounts/login
       - POST:/accounts/admin/login
-      - POST:/accounts/refresh
+      - GET:/accounts/refresh
       - POST:/user/saveUser
 
 # 聚合 swagger文档

@@ -1,6 +1,6 @@
 package com.learnhub.auth.service.impl;
 
-import com.learnhub.api.client.UserClient;
+import com.learnhub.api.client.user.UserClient;
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.auth.common.constants.JwtConstants;
 import com.learnhub.auth.service.IAccountService;
@@ -45,12 +45,12 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void logout() {
+    public void logout(String name) {
         // 删除jti
         jwtTool.cleanJtiCache();
         // 删除cookie
         WebUtils.cookieBuilder()
-                .name(JwtConstants.REFRESH_HEADER)
+                .name(name)
                 .value("")
                 .maxAge(0)
                 .httpOnly(true)

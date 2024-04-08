@@ -16,7 +16,6 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
 @MapperScan("com.learnhub.user.mapper")
 public class UserApplication {
     public static void main(String[] args) {

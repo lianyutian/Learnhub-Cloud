@@ -43,7 +43,13 @@ public class AccountController {
     @Operation(summary = "退出登录")
     @PostMapping(value = "/logout")
     public void logout() {
-        accountService.logout();
+        accountService.logout(JwtConstants.REFRESH_HEADER);
+    }
+
+    @Operation(summary = "管理端退出登录")
+    @PostMapping(value = "/adminLogout")
+    public void adminLogout() {
+        accountService.logout(JwtConstants.ADMIN_REFRESH_HEADER);
     }
 
     @Operation(summary = "刷新token")

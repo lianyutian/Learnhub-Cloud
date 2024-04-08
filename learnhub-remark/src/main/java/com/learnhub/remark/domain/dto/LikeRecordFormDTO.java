@@ -12,15 +12,15 @@ import lombok.Data;
 @Schema(description = "点赞记录DTO", name = "LikeRecordFormDTO")
 @Data
 public class LikeRecordFormDTO {
-    @Schema(description = "点赞业务id", name = "bizId", example = "1578558664933920770")
+    @Schema(description = "点赞业务id", name = "bizId", example = "1578558664933920770", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "业务id不能为空")
     private Long bizId;
 
-    @Schema(description = "点赞业务类型", name = "bizType", example = "1")
+    @Schema(description = "点赞业务类型", name = "bizType", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "业务类型不能为空")
     private String bizType;
 
-    @Schema(description = "是否点赞，true：点赞；false：取消点赞", name = "liked", example = "true")
+    @Schema(description = "是否点赞，true：点赞；false：取消点赞", name = "liked", example = "true", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "是否点赞不能为空")
     private Boolean liked;
 }

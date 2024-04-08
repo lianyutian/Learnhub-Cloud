@@ -40,6 +40,7 @@ learnhub:
         - /accounts/admin/login
         - /accounts/login
         - /accounts/logout
+        - /accounts/refresh
 
 encrypt:
   key-store:

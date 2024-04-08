@@ -16,8 +16,10 @@ learnhub:
   auth:
     resource:
       enable: true
-      excludeLoginPaths:
-        - /user/queryLoginUser/{isStaff}
+rocketmq:
+  name-server: 127.0.0.1:9786
+  producer:
+    group: remarkGroup
 
 
 

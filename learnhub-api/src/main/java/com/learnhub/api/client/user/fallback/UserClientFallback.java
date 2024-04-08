@@ -1,6 +1,6 @@
-package com.learnhub.api.client.fallback;
+package com.learnhub.api.client.user.fallback;
 
-import com.learnhub.api.client.UserClient;
+import com.learnhub.api.client.user.UserClient;
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import lombok.extern.slf4j.Slf4j;

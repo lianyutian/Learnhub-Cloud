@@ -1,2 +1,3 @@
 com.learnhub.common.autoconfigure.mvc.MvcConfig
 com.learnhub.common.autoconfigure.mybatis.IdGeneratorConfig
+com.learnhub.common.autoconfigure.mq.RocketMQEnhanceAutoConfiguration
