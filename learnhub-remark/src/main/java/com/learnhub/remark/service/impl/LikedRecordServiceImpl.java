@@ -1,19 +1,15 @@
 package com.learnhub.remark.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.learnhub.api.dto.remark.LikedTimesDTO;
+import com.learnhub.api.dto.remark.RemarkMessageDTO;
 import com.learnhub.common.autoconfigure.mq.RocketMQEnhanceTemplate;
 import com.learnhub.common.exceptions.DbException;
 import com.learnhub.common.utils.StringUtils;
 import com.learnhub.common.utils.UserContext;
 import com.learnhub.remark.domain.dto.LikeRecordFormDTO;
-import com.learnhub.remark.domain.message.RemarkMessage;
 import com.learnhub.remark.domain.po.LikedRecord;
 import com.learnhub.remark.mapper.LikedRecordMapper;
 import com.learnhub.remark.service.ILikedRecordService;
 import lombok.AllArgsConstructor;
-import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +43,7 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
         // 3.如果执行成功，统计点赞总数
         int likes = likedRecordMapper.countLikeRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
         // 4.发送MQ通知
-        RemarkMessage remarkMessage = new RemarkMessage();
+        RemarkMessageDTO remarkMessage = new RemarkMessageDTO();
         // 设置业务key
         remarkMessage.setKey(String.valueOf(likeRecordFormDTO.getBizId()));
         // 设置消息来源，便于查询

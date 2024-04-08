@@ -16,7 +16,7 @@ public class LikeRecordFormDTO {
     @NotNull(message = "业务id不能为空")
     private Long bizId;
 
-    @Schema(description = "点赞业务类型", name = "bizType", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "点赞业务类型", name = "bizType", example = "QA", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "业务类型不能为空")
     private String bizType;
 

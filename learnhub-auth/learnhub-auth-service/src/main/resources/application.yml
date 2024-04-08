@@ -48,6 +48,10 @@ encrypt:
     location: classpath:learnhub.jks  #KeyStore 密钥库
     password: learnhub123             #密钥库密码
 
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: remarkGroup
 
 
 

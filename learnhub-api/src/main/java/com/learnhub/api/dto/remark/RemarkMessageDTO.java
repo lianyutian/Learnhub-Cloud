@@ -1,4 +1,4 @@
-package com.learnhub.remark.domain.message;
+package com.learnhub.api.dto.remark;
 
 import com.learnhub.common.autoconfigure.mq.BaseMessage;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2024/4/8 17:28
  */
 @Data
-public class RemarkMessage extends BaseMessage {
+public class RemarkMessageDTO extends BaseMessage {
     private Long bizId;
     private int likes;
 }

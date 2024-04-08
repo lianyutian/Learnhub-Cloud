@@ -39,7 +39,7 @@
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <knife4j.version>4.4.0</knife4j.version>
         <hutool.version>5.8.25</hutool.version>
-        <rocketmq.version>2.3.0</rocketmq.version>
+        <rocketmq.version>2.2.3</rocketmq.version>
         <rocketmq.client.version>4.9.5</rocketmq.client.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
@@ -121,3 +121,5 @@
     </build>
 
 </project>
+
+
