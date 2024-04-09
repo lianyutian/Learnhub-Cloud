@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(
         consumerGroup = "remark_group",
         topic = "like.record.topic",
-        selectorExpression = "*",
+        selectorExpression = "QA",
         consumeThreadMax = 5 //默认是64个线程并发消息，配置 consumeThreadMax 参数指定并发消费线程数，避免太大导致资源不够
 )
 public class MessageTest extends EnhanceMessageHandler<RemarkMessageDTO> implements RocketMQListener<RemarkMessageDTO> {

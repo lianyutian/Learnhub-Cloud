@@ -3,6 +3,7 @@ package com.learnhub.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -10,10 +11,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @version 1.0
  * @since 2024/3/29 10:20
  */
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @EnableScheduling
 public class GatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(GatewayApplication.class, args);
+        Object rocketMQConfig = run.getBean("RocketMQConfig");
+        System.out.println(rocketMQConfig);
+
     }
 }

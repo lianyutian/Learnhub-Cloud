@@ -3,6 +3,9 @@ package com.learnhub.common.autoconfigure.mybatis;
 import com.github.yitter.contract.IdGeneratorOptions;
 import com.github.yitter.idgen.YitIdHelper;
 import com.learnhub.common.autoconfigure.mybatis.plugin.AutoIdInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2024/4/3 15:56
  */
 @Configuration
+@ConditionalOnProperty(name = "mybatis")
 public class IdGeneratorConfig {
     @Bean
     public IdGeneratorOptions idGeneratorOptions() {

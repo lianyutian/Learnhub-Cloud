@@ -7,6 +7,13 @@ spring:
     active: dev
   application:
     name: remark-service
+  # mysql配置 start ====================================================================================================
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/learnhub?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  # mysql配置 end ======================================================================================================
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
@@ -17,6 +24,7 @@ learnhub:
     resource:
       enable: true
 rocketmq:
+  enable: true
   name-server: 127.0.0.1:9786
   producer:
     group: remarkGroup

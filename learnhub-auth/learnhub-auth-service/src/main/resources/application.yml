@@ -49,6 +49,7 @@ encrypt:
     password: learnhub123             #密钥库密码
 
 rocketmq:
+  enable: true
   name-server: 127.0.0.1:9876
   producer:
     group: remarkGroup

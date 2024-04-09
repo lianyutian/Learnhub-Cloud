@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQMessageConverter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -19,6 +21,7 @@ import java.util.List;
  * @since 2024/4/8 17:16
  */
 @Configuration
+@ConditionalOnBean(RocketMQConfig.class)
 public class RocketMQEnhanceAutoConfiguration {
     /**
      * 注入增强的RocketMQEnhanceTemplate
@@ -45,4 +48,5 @@ public class RocketMQEnhanceAutoConfiguration {
         }
         return converter;
     }
+
 }
