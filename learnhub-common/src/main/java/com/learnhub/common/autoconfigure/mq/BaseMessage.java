@@ -3,6 +3,7 @@ package com.learnhub.common.autoconfigure.mq;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * MQ基础消息实体，所有消息都需要继承此类
@@ -27,6 +28,11 @@ public abstract class BaseMessage {
      * 发送时间
      */
     protected LocalDateTime sendTime = LocalDateTime.now();
+
+    /**
+     * 跟踪id，用于slf4j等日志记录跟踪id，方便查询业务链
+     */
+    protected String traceId = UUID.randomUUID().toString();
 
     /**
      * 重试次数，用于判断重试次数，超过重试次数发送异常警告

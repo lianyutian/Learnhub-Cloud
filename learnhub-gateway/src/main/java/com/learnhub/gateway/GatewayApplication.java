@@ -15,9 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class GatewayApplication {
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(GatewayApplication.class, args);
-        Object rocketMQConfig = run.getBean("RocketMQConfig");
-        System.out.println(rocketMQConfig);
-
+        SpringApplication.run(GatewayApplication.class, args);
     }
 }

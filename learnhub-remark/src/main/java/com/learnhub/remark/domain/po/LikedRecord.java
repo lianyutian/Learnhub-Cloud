@@ -1,5 +1,6 @@
 package com.learnhub.remark.domain.po;
 
+import com.learnhub.common.autoconfigure.mybatis.plugin.AutoId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class LikedRecord {
+    @AutoId
     private Long id;
 
     /**

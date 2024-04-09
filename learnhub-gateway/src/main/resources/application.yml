@@ -27,6 +27,10 @@ spring:
           uri: lb://auth-service
           predicates:
             - Path=/as/**
+        - id: rs
+          uri: lb://remark-service
+          predicates:
+            - Path=/rs/**
       default-filters:
         - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
 

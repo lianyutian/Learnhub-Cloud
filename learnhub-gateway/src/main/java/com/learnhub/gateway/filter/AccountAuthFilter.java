@@ -2,20 +2,17 @@ package com.learnhub.gateway.filter;
 
 import com.learnhub.authsdk.gateway.config.AuthProperties;
 import com.learnhub.authsdk.gateway.utils.AuthUtil;
+import com.learnhub.common.constants.ErrorInfo;
 import com.learnhub.common.domain.Result;
 import com.learnhub.common.domain.dto.LoginUserDTO;
-import com.learnhub.common.exceptions.BadRequestException;
 import com.learnhub.common.exceptions.UnauthorizedException;
 import com.learnhub.common.utils.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.Assert;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -62,6 +59,10 @@ public class AccountAuthFilter implements GlobalFilter, Ordered {
         }
 
         Result<LoginUserDTO> result = authUtil.parseToken(token);
+
+        if (result.getCode() != ErrorInfo.Code.SUCCESS) {
+            throw new UnauthorizedException(result.getCode(), result.getMsg());
+        }
 
         // 4.如果用户是登录状态，尝试更新请求头，传递用户信息
         if (result.success()) {
