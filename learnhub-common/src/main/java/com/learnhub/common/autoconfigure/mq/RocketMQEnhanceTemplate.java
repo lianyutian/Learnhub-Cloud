@@ -1,6 +1,7 @@
 package com.learnhub.common.autoconfigure.mq;
 
 import com.alibaba.fastjson.JSONObject;
+import com.learnhub.common.utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -38,8 +39,8 @@ public class RocketMQEnhanceTemplate {
     public <T extends BaseMessage> SendResult send(String destination, T message) {
         // 设置业务键，此处根据公共的参数进行处理
         // 更多的其它基础业务处理...
-        Message<T> sendMessage = MessageBuilder
-                .withPayload(message)
+        Message<String> sendMessage = MessageBuilder
+                .withPayload(JsonUtils.toJsonStr(message))
                 .setHeader(RocketMQHeaders.KEYS, message.getKey())
                 .build();
 

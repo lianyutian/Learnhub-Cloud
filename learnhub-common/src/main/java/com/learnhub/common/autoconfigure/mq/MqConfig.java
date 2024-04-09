@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import static com.learnhub.common.constants.Constant.REQUEST_ID_HEADER;
-import static com.learnhub.common.constants.MqConstants.Exchange.ERROR_EXCHANGE;
+import static com.learnhub.common.constants.MqConstants.Topic.ERROR_EXCHANGE;
 import static com.learnhub.common.constants.MqConstants.Key.ERROR_KEY_PREFIX;
 import static com.learnhub.common.constants.MqConstants.Queue.ERROR_QUEUE_TEMPLATE;
 

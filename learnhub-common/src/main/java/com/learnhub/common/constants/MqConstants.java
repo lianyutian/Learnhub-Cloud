@@ -6,7 +6,7 @@ package com.learnhub.common.constants;
  * @since 2024/4/1 17:31
  */
 public interface MqConstants {
-    interface Exchange{
+    interface Topic {
         /*课程有关的交换机*/
         String COURSE_EXCHANGE = "course.topic";
 
@@ -28,15 +28,17 @@ public interface MqConstants {
         String TRADE_DELAY_EXCHANGE = "trade.delay.topic";
 
         /*点赞记录有关的交换机*/
-        String LIKE_RECORD_EXCHANGE = "like.record.topic";
+        String LIKE_RECORD_EXCHANGE = "like_record_topic";
 
         /*优惠促销有关的交换机*/
         String PROMOTION_EXCHANGE = "promotion.topic";
     }
+
     interface Queue {
         String ERROR_QUEUE_TEMPLATE = "error.{}.queue";
     }
-    interface Key{
+
+    interface Key {
         /*课程有关的 RoutingKey*/
         String COURSE_NEW_KEY = "course.new";
         String COURSE_UP_KEY = "course.up";
@@ -61,9 +63,9 @@ public interface MqConstants {
         String NOTE_GATHERED = "note.gathered";
 
         /*点赞的RoutingKey*/
-        String LIKED_TIMES_KEY_TEMPLATE = "{}.times.changed";
+        String LIKED_TIMES_KEY_TEMPLATE = "{}_times_changed";
         /*问答*/
-        String QA_LIKED_TIMES_KEY = "QA.times.changed";
+        String QA_LIKED_TIMES_KEY = "QA_times_changed";
         /*笔记*/
         String NOTE_LIKED_TIMES_KEY = "NOTE.times.changed";
 
@@ -82,5 +84,29 @@ public interface MqConstants {
 
         /*领取优惠券的key*/
         String COUPON_RECEIVE = "coupon.receive";
+    }
+
+    /**
+     * RocketMQ延迟等级
+     */
+    interface RocketMqDelayLevel {
+        int ONE_SECOND = 1;
+        int FIVE_SECOND = 2;
+        int TEN_SECOND = 3;
+        int THIRTY_SECOND = 4;
+        int ONE_MINUTE = 5;
+        int TWO_MINUTE = 6;
+        int THREE_MINUTE = 7;
+        int FOUR_MINUTE = 8;
+        int FIVE_MINUTE = 9;
+        int SIX_MINUTE = 10;
+        int SEVEN_MINUTE = 11;
+        int EIGHT_MINUTE = 12;
+        int NINE_MINUTE = 13;
+        int TEN_MINUTE = 14;
+        int TWENTY_MINUTE = 15;
+        int THIRTY_MINUTE = 16;
+        int ONE_HOUR = 17;
+        int TWO_HOUR = 18;
     }
 }

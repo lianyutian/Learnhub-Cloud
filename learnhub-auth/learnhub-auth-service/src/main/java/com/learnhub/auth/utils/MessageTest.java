@@ -1,6 +1,6 @@
 package com.learnhub.auth.utils;
 
-import com.learnhub.api.dto.remark.RemarkMessageDTO;
+import com.learnhub.api.dto.remark.RemarkMQMessageDTO;
 import com.learnhub.common.autoconfigure.mq.EnhanceMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -17,18 +17,18 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(
         consumerGroup = "remark_group",
         topic = "like.record.topic",
-        selectorExpression = "QA",
+        selectorExpression = "QA.times.changed",
         consumeThreadMax = 5 //默认是64个线程并发消息，配置 consumeThreadMax 参数指定并发消费线程数，避免太大导致资源不够
 )
-public class MessageTest extends EnhanceMessageHandler<RemarkMessageDTO> implements RocketMQListener<RemarkMessageDTO> {
+public class MessageTest extends EnhanceMessageHandler<RemarkMQMessageDTO> implements RocketMQListener<RemarkMQMessageDTO> {
 
     @Override
-    protected void handleMessage(RemarkMessageDTO message) throws Exception {
+    protected void handleMessage(RemarkMQMessageDTO message) throws Exception {
         System.out.println(message);
     }
 
     @Override
-    protected void handleMaxRetriesExceeded(RemarkMessageDTO message) {
+    protected void handleMaxRetriesExceeded(RemarkMQMessageDTO message) {
         // 当超过指定重试次数消息时此处方法会被调用
         // 生产中可以进行回退或其他业务操作
         log.error("消息消费失败，请执行后续处理");
@@ -45,7 +45,7 @@ public class MessageTest extends EnhanceMessageHandler<RemarkMessageDTO> impleme
     }
 
     @Override
-    public void onMessage(RemarkMessageDTO remarkMessageDTO) {
-        super.dispatchMessage(remarkMessageDTO);
+    public void onMessage(RemarkMQMessageDTO remarkMQMessageDTO) {
+        super.dispatchMessage(remarkMQMessageDTO);
     }
 }
