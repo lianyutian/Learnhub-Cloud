@@ -1,4 +1,4 @@
-package com.learnhub.auth.utils;
+package com.learnhub.auth.consume;
 
 import com.learnhub.api.dto.remark.RemarkMQMessageDTO;
 import com.learnhub.common.autoconfigure.mq.EnhanceMessageHandler;
@@ -15,9 +15,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RocketMQMessageListener(
+        nameServer = "192.168.106.1:9876",
         consumerGroup = "remark_group",
-        topic = "like.record.topic",
-        selectorExpression = "QA.times.changed",
+        topic = "like_record_topic",
+        selectorExpression = "*",
         consumeThreadMax = 5 //默认是64个线程并发消息，配置 consumeThreadMax 参数指定并发消费线程数，避免太大导致资源不够
 )
 public class MessageTest extends EnhanceMessageHandler<RemarkMQMessageDTO> implements RocketMQListener<RemarkMQMessageDTO> {

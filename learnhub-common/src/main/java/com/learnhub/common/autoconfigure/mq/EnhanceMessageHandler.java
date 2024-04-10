@@ -104,9 +104,9 @@ public abstract class EnhanceMessageHandler<T extends BaseMessage> {
             long now = System.currentTimeMillis();
             handleMessage(message);
             long costTime = System.currentTimeMillis() - now;
-            log.info("消息{}消费成功，耗时[{}ms]", message.getKey(),costTime);
+            log.info("消息:{},消费成功，耗时[{}ms]", message.getKey(),costTime);
         } catch (Exception e) {
-            log.error("消息{}消费异常", message.getKey(),e);
+            log.error("消息:{},消费异常", message.getKey(),e);
             // 是捕获异常还是抛出，由子类决定
             if (throwException()) {
                 //抛出异常，由DefaultMessageListenerConcurrently类处理

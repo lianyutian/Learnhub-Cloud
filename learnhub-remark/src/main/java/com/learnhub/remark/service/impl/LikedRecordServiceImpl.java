@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 
-import static com.learnhub.common.constants.MqConstants.Topic.LIKE_RECORD_EXCHANGE;
+import static com.learnhub.common.constants.MqConstants.Topic.LIKE_RECORD_TOPIC;
 import static com.learnhub.common.constants.MqConstants.Key.LIKED_TIMES_KEY_TEMPLATE;
 
 /**
@@ -53,7 +53,7 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
         remarkMessage.setLikes(likes);
 
         rocketMQEnhanceTemplate.send(
-                LIKE_RECORD_EXCHANGE,
+                LIKE_RECORD_TOPIC,
                 StringUtils.format(LIKED_TIMES_KEY_TEMPLATE, likeRecordFormDTO.getBizType()),
                 remarkMessage
         );

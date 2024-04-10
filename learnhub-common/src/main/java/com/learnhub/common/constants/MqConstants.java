@@ -28,7 +28,7 @@ public interface MqConstants {
         String TRADE_DELAY_EXCHANGE = "trade.delay.topic";
 
         /*点赞记录有关的交换机*/
-        String LIKE_RECORD_EXCHANGE = "like_record_topic";
+        String LIKE_RECORD_TOPIC = "like_record_topic";
 
         /*优惠促销有关的交换机*/
         String PROMOTION_EXCHANGE = "promotion.topic";

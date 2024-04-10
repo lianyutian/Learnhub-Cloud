@@ -15,11 +15,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnProperty(name = "rocketmq.enable", havingValue = "true")
 public class RocketMQConfig {
-    @Value("${rocketmq.producer.group}")
+
+    @Value("${rocketmq.nameserver}")
+    private String nameServer;
+
+    @Value("${rocketmq.producer.group:CLIENT_INNER_PRODUCER_GROUP}")
     private String producerGroup;
 
-    @Value("${rocketmq.name-server}")
-    private String nameServer;
+    @Value("${rocketmq.producer.send-message-timeout:3000}")
+    private Integer sendMsgTimeout;
+
+    @Value("${rocketmq.producer.max-message-size:4194304}")
+    private Integer maxMessageSize;
+
+    @Value("${rocketmq.producer.retry-times-when-send-failed:2}")
+    private Integer retryTimesWhenSendFailed ;
+
+    @Value("${rocketmq.producer.retry-times-when-send-async-failed:2}")
+    private Integer retryTimesWhenSendAsyncFailed ;
 
     /**
      * 由于使用的Spring版本是3.0.0以上，与rocketMq不是很兼容，对于rocketMqTemplate
@@ -31,6 +44,10 @@ public class RocketMQConfig {
         DefaultMQProducer defaultMqProducer = new DefaultMQProducer();
         defaultMqProducer.setProducerGroup(producerGroup);
         defaultMqProducer.setNamesrvAddr(nameServer);
+        defaultMqProducer.setSendMsgTimeout(this.sendMsgTimeout);
+        defaultMqProducer.setMaxMessageSize(this.maxMessageSize);
+        defaultMqProducer.setRetryTimesWhenSendFailed(this.retryTimesWhenSendFailed);
+        defaultMqProducer.setRetryTimesWhenSendAsyncFailed(this.retryTimesWhenSendAsyncFailed);
         rocketMqTemplate.setProducer(defaultMqProducer);
         return rocketMqTemplate;
     }

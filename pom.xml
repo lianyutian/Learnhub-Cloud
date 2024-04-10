@@ -40,7 +40,7 @@
         <knife4j.version>4.4.0</knife4j.version>
         <hutool.version>5.8.25</hutool.version>
         <rocketmq.version>2.2.1</rocketmq.version>
-        <rocketmq.client.version>4.9.7</rocketmq.client.version>
+        <rocketmq.client.version>4.9.4</rocketmq.client.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
     </properties>
