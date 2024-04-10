@@ -9,26 +9,27 @@ public class UserContext {
     private static final ThreadLocal<Long> TL = new ThreadLocal<>();
 
     /**
-     * 保存用户信息
+     * 保存用户id
      *
      * @param userId 用户id
      */
-    public static void setUser(Long userId){
+    public static void setUserId(Long userId){
         TL.set(userId);
     }
 
     /**
-     * 获取用户
+     * 获取用户id
+     *
      * @return 用户id
      */
-    public static Long getUser(){
+    public static Long getUserId(){
         return TL.get();
     }
 
     /**
-     * 移除用户信息
+     * 移除用户id
      */
-    public static void removeUser(){
+    public static void removeUserId(){
         TL.remove();
     }
 }

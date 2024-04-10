@@ -10,7 +10,6 @@ import com.learnhub.remark.domain.po.LikedRecord;
 import com.learnhub.remark.mapper.LikedRecordMapper;
 import com.learnhub.remark.service.ILikedRecordService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -24,7 +23,7 @@ import static com.learnhub.common.constants.MqConstants.Key.LIKED_TIMES_KEY_TEMP
  * @version 1.0
  * @since 2024/4/1 16:09
  */
-@Service
+//@Service
 @AllArgsConstructor
 public class LikedRecordServiceImpl implements ILikedRecordService {
 
@@ -41,7 +40,7 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
             return;
         }
         // 3.如果执行成功，统计点赞总数
-        int likes = likedRecordMapper.countLikeRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
+        int likes = likedRecordMapper.countLikeRecord(UserContext.getUserId(), likeRecordFormDTO.getBizId());
         // 4.发送MQ通知
         RemarkMQMessageDTO remarkMessage = new RemarkMQMessageDTO();
         // 设置业务key
@@ -62,13 +61,13 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
     @Override
     public Set<Long> isBizLiked(List<Long> bizIds) {
         // 1.获取登录用户id
-        Long userId = UserContext.getUser();
+        Long userId = UserContext.getUserId();
         // 2.查询点赞状态
         return likedRecordMapper.queryLikeRecordByBizIds(bizIds, userId);
     }
 
     private boolean like(LikeRecordFormDTO likeRecordFormDTO) {
-        Long userId = UserContext.getUser();
+        Long userId = UserContext.getUserId();
         // 1.查询点赞记录
         int count = likedRecordMapper.countLikeRecord(userId, likeRecordFormDTO.getBizId());
 
@@ -88,6 +87,6 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
     }
 
     private boolean unlike(LikeRecordFormDTO likeRecordFormDTO) {
-        return likedRecordMapper.deleteLikedRecord(UserContext.getUser(), likeRecordFormDTO.getBizId());
+        return likedRecordMapper.deleteLikedRecord(UserContext.getUserId(), likeRecordFormDTO.getBizId());
     }
 }

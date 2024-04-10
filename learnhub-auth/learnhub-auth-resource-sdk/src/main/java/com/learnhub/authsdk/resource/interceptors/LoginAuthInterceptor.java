@@ -1,7 +1,5 @@
 package com.learnhub.authsdk.resource.interceptors;
 
-import com.learnhub.common.exceptions.BadRequestException;
-import com.learnhub.common.exceptions.UnauthorizedException;
 import com.learnhub.common.utils.UserContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,7 +15,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 1.尝试获取用户信息
-        Long userId = UserContext.getUser();
+        Long userId = UserContext.getUserId();
         // 2.判断是否登录
         if (userId == null) {
             response.setStatus(401);

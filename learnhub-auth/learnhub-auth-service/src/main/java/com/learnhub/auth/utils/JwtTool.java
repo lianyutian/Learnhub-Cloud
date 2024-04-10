@@ -137,6 +137,6 @@ public class JwtTool {
      * 清理刷新refresh-token的jti，本质是refresh-token作废
      */
     public void cleanJtiCache() {
-        stringRedisTemplate.delete(JwtConstants.JWT_REDIS_KEY_PREFIX + UserContext.getUser());
+        stringRedisTemplate.delete(JwtConstants.JWT_REDIS_KEY_PREFIX + UserContext.getUserId());
     }
 }

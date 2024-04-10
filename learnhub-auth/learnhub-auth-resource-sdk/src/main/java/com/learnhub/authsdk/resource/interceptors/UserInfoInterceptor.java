@@ -25,7 +25,7 @@ public class UserInfoInterceptor implements HandlerInterceptor {
         // 3.转为用户id并保存
         try {
             Long userId = Long.valueOf(authorization);
-            UserContext.setUser(userId);
+            UserContext.setUserId(userId);
             return true;
         } catch (NumberFormatException e) {
             log.error("用户身份信息格式不正确，{}, 原因：{}", authorization, e.getMessage());
@@ -36,7 +36,7 @@ public class UserInfoInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // 清理用户信息
-        UserContext.removeUser();
+        UserContext.removeUserId();
     }
 
 }
