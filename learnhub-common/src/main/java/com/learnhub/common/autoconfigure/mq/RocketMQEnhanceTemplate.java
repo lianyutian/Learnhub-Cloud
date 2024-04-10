@@ -39,8 +39,8 @@ public class RocketMQEnhanceTemplate {
     public <T extends BaseMessage> SendResult send(String destination, T message) {
         // 设置业务键，此处根据公共的参数进行处理
         // 更多的其它基础业务处理...
-        Message<String> sendMessage = MessageBuilder
-                .withPayload(JsonUtils.toJsonStr(message))
+        Message<T> sendMessage = MessageBuilder
+                .withPayload(message)
                 .setHeader(RocketMQHeaders.KEYS, message.getKey())
                 .build();
 

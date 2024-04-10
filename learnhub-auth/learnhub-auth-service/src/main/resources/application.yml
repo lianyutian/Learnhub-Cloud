@@ -50,7 +50,9 @@ encrypt:
 
 rocketmq:
   enable: true
-  name-server: 192.168.106.1:9876
+  name-server: 192.168.3.2:9876
+  #name-server: 192.168.106.1:9876
+
 
 
 

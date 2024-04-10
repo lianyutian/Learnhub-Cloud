@@ -66,6 +66,11 @@ public class LikedRecordServiceImpl implements ILikedRecordService {
         return likedRecordMapper.queryLikeRecordByBizIds(bizIds, userId);
     }
 
+    @Override
+    public void readLikedTimesAndSendMessage(String bizType, int maxBizSize) {
+
+    }
+
     private boolean like(LikeRecordFormDTO likeRecordFormDTO) {
         Long userId = UserContext.getUserId();
         // 1.查询点赞记录

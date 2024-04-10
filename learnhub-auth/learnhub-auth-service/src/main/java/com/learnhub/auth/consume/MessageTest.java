@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RocketMQMessageListener(
-        nameServer = "192.168.106.1:9876",
         consumerGroup = "remark_group",
         topic = "like_record_topic",
         selectorExpression = "*",

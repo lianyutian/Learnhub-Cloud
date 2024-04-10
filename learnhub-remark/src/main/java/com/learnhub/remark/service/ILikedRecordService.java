@@ -25,4 +25,12 @@ public interface ILikedRecordService {
      * @return 点赞状态
      */
     Set<Long> isBizLiked(List<Long> bizIds);
+
+    /**
+     * 计算业务点赞数，并发送MQ
+     *
+     * @param bizType 业务类型
+     * @param maxBizSize 一次计算点赞最大数
+     */
+    void readLikedTimesAndSendMessage(String bizType, int maxBizSize);
 }
