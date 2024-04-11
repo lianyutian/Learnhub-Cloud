@@ -14,5 +14,5 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RemarkMQMessagesDTO extends BaseMessage {
-    List<RemarkMQMessageDTO> remarkMQMessageDTOS;
+    List<RemarkMQMessageDTO2> remarkMQMessageDTOS;
 }

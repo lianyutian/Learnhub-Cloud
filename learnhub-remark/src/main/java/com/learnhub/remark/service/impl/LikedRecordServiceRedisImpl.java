@@ -1,6 +1,6 @@
 package com.learnhub.remark.service.impl;
 
-import com.learnhub.api.dto.remark.RemarkMQMessageDTO;
+import com.learnhub.api.dto.remark.RemarkMQMessageDTO2;
 import com.learnhub.api.dto.remark.RemarkMQMessagesDTO;
 import com.learnhub.common.autoconfigure.mq.RocketMQEnhanceTemplate;
 import com.learnhub.common.exceptions.DbException;
@@ -103,15 +103,16 @@ public class LikedRecordServiceRedisImpl implements ILikedRecordService {
 
         // 2.数据转换
         RemarkMQMessagesDTO remarkMQMessagesDTO = new RemarkMQMessagesDTO();
-        List<RemarkMQMessageDTO> remarkMessageList = new ArrayList<>(tuples.size());
+        List<RemarkMQMessageDTO2> remarkMessageList = new ArrayList<>(tuples.size());
         for (ZSetOperations.TypedTuple<String> tuple : tuples) {
             String bizId = tuple.getValue();
             Double likedTimes = tuple.getScore();
             if (bizId == null || likedTimes == null) {
                 continue;
             }
-            remarkMessageList.add(RemarkMQMessageDTO.of(Long.valueOf(bizId), likedTimes.intValue()));
+            remarkMessageList.add(RemarkMQMessageDTO2.of(Long.valueOf(bizId), likedTimes.intValue()));
         }
+        remarkMQMessagesDTO.setSource("remark");
         remarkMQMessagesDTO.setRemarkMQMessageDTOS(remarkMessageList);
 
         // 3.发送MQ消息

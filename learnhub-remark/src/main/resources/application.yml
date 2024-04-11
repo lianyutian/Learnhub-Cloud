@@ -36,8 +36,8 @@ learnhub:
       enable: true
 rocketmq:
   enable: true
-  #name-server: 192.168.106.1:9876 # 本机ip
-  name-server: 192.168.3.2:9876
+  name-server: 192.168.106.1:9876 # 本机ip
+  #name-server: 192.168.3.2:9876
   producer:
     group: remark_group
     send-message-timeout: 30000

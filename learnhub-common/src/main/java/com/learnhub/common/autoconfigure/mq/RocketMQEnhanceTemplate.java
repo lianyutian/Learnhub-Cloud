@@ -1,14 +1,17 @@
 package com.learnhub.common.autoconfigure.mq;
 
+import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSONObject;
-import com.learnhub.common.utils.JsonUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.apache.rocketmq.spring.support.RocketMQHeaders;
+import org.slf4j.MDC;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
+
+import static com.learnhub.common.constants.Constant.REQUEST_ID_HEADER;
 
 /**
  * @author liming
@@ -39,6 +42,12 @@ public class RocketMQEnhanceTemplate {
     public <T extends BaseMessage> SendResult send(String destination, T message) {
         // 设置业务键，此处根据公共的参数进行处理
         // 更多的其它基础业务处理...
+        String requestId = MDC.get(REQUEST_ID_HEADER);
+        if (requestId == null) {
+            requestId = UUID.randomUUID().toString(true);
+        }
+        message.setKey(requestId);
+
         Message<T> sendMessage = MessageBuilder
                 .withPayload(message)
                 .setHeader(RocketMQHeaders.KEYS, message.getKey())
@@ -59,6 +68,13 @@ public class RocketMQEnhanceTemplate {
      * 发送延迟消息
      */
     public <T extends BaseMessage> SendResult send(String topic, String tag, T message, int delayLevel) {
+
+        String requestId = MDC.get(REQUEST_ID_HEADER);
+        if (requestId == null) {
+            requestId = UUID.randomUUID().toString(true);
+        }
+        message.setKey(requestId);
+
         return send(buildDestination(topic, tag), message, delayLevel);
     }
 
