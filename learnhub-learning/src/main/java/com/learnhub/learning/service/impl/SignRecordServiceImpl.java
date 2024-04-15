@@ -8,10 +8,7 @@ import com.learnhub.common.utils.CollUtils;
 import com.learnhub.common.utils.DateUtils;
 import com.learnhub.common.utils.UserContext;
 import com.learnhub.learning.constants.RedisConstants;
-import com.learnhub.learning.domain.po.PointsRecord;
 import com.learnhub.learning.domain.vo.SignResultVO;
-import com.learnhub.learning.enums.PointsRecordType;
-import com.learnhub.learning.mapper.SignRecordMapper;
 import com.learnhub.learning.mq.message.SignInMessage;
 import com.learnhub.learning.service.ISignRecordService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +17,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.learnhub.common.constants.MqConstants.Topic.LEARNING_TOPIC;
@@ -59,25 +55,22 @@ public class SignRecordServiceImpl implements ISignRecordService {
         // 2.计算连续签到天数
         int signDays = countSignDays(key, now.getDayOfMonth());
         // 3.计算签到得分
-        int rewardPoints;
-        switch (signDays) {
-            case 7:
-                rewardPoints = 10;
-                break;
-            case 14:
-                rewardPoints = 20;
-                break;
-            case 28:
-                rewardPoints = 40;
-                break;
-            default:
-                rewardPoints = 0;
-        }
+        int rewardPoints = switch (signDays) {
+            case 7 -> 10;
+            case 14 -> 20;
+            case 28 -> 40;
+            default -> 0;
+        };
+        SignInMessage signInMessage = new SignInMessage();
+        signInMessage.setSource(MqConstants.Source.SIGN_IN_SOURCE);
+        signInMessage.setUserId(userId);
+        signInMessage.setPoints(rewardPoints + 1);
         // 4.保存积分明细记录
         rocketMQEnhanceTemplate.send(
                 LEARNING_TOPIC,
                 MqConstants.Tag.SIGN_IN_TAG,
-                SignInMessage.of(userId, rewardPoints + 1));
+                signInMessage)
+        ;
         // 5.封装返回
         SignResultVO vo = new SignResultVO();
         vo.setSignDays(signDays);

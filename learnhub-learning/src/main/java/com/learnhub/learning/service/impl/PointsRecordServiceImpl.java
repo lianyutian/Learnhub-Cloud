@@ -4,7 +4,7 @@ import com.learnhub.common.utils.DateUtils;
 import com.learnhub.learning.constants.RedisConstants;
 import com.learnhub.learning.domain.po.PointsRecord;
 import com.learnhub.learning.enums.PointsRecordType;
-import com.learnhub.learning.mapper.SignRecordMapper;
+import com.learnhub.learning.mapper.PointsRecordMapper;
 import com.learnhub.learning.service.IPointsRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PointsRecordServiceImpl implements IPointsRecordService {
 
-    private final SignRecordMapper signRecordMapper;
+    private final PointsRecordMapper pointsRecordMapper;
     private final StringRedisTemplate redisTemplate;
 
     @Override
@@ -35,7 +35,7 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
             LocalDateTime begin = DateUtils.getDayStartTime(now);
             LocalDateTime end = DateUtils.getDayEndTime(now);
             // 2.1.查询今日已得积分
-            int currentPoints = signRecordMapper.queryUserPointsByTypeAndDate(userId, type, begin, end);
+            int currentPoints = pointsRecordMapper.queryUserPointsByTypeAndDate(userId, type, begin, end);
             // 2.2.判断是否超过上限
             if(currentPoints >= maxPoints) {
                 // 2.3.超过，直接结束
@@ -51,7 +51,7 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
         pointsRecord.setPoints(realPoints);
         pointsRecord.setUserId(userId);
         pointsRecord.setType(type);
-        // TODO save
+        pointsRecordMapper.savePointsRecord(pointsRecord);
         // 4.更新总积分到Redis
         String key = RedisConstants.POINTS_BOARD_KEY_PREFIX + now.format(DateUtils.POINTS_BOARD_SUFFIX_FORMATTER);
         redisTemplate.opsForZSet().incrementScore(key, userId.toString(), realPoints);

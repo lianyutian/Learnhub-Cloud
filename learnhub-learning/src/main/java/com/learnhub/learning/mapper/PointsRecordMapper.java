@@ -1,5 +1,6 @@
 package com.learnhub.learning.mapper;
 
+import com.learnhub.learning.domain.po.PointsRecord;
 import com.learnhub.learning.enums.PointsRecordType;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * @since 2024/4/15 17:45
  */
 @Mapper
-public interface SignRecordMapper {
+public interface PointsRecordMapper {
     /**
      * 根据类型和时间查询用户积分
      *
@@ -22,4 +23,11 @@ public interface SignRecordMapper {
      * @return 积分
      */
     int queryUserPointsByTypeAndDate(Long userId, PointsRecordType type, LocalDateTime begin, LocalDateTime end);
+
+    /**
+     * 保存积分记录
+     *
+     * @param pointsRecord 积分记录
+     */
+    void savePointsRecord(PointsRecord pointsRecord);
 }

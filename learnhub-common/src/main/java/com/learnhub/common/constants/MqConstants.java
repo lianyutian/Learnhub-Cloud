@@ -6,6 +6,10 @@ package com.learnhub.common.constants;
  * @since 2024/4/1 17:31
  */
 public interface MqConstants {
+    interface Source {
+        String SIGN_IN_SOURCE = "sign_in";
+    }
+
     interface Topic {
         /*课程有关的交换机*/
         String COURSE_EXCHANGE = "course.topic";
@@ -14,7 +18,7 @@ public interface MqConstants {
         String ORDER_EXCHANGE = "order.topic";
 
         /*学习有关的交换机*/
-        String LEARNING_TOPIC = "learning.topic";
+        String LEARNING_TOPIC = "learning_topic";
 
         /*信息中心短信相关的交换机*/
         String SMS_EXCHANGE = "sms.direct";
