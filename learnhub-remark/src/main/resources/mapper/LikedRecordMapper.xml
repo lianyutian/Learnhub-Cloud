@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.remark.mapper.LikedRecordMapper">
+
+    <select id="countLikeRecord" resultType="java.lang.Integer">
+        select count(*)
+        from liked_record
+        where user_id = #{userId}
+          and biz_id = #{bizId}
+    </select>
+
+    <insert id="saveLikedRecord" parameterType="com.learnhub.remark.domain.po.LikedRecord">
+        insert into liked_record(user_id, biz_id, biz_type)
+        values (#{userId}, #{bizId}, #{bizType})
+    </insert>
+
+    <delete id="deleteLikedRecord">
+        delete
+        from liked_record
+        where user_id = #{userId}
+          and biz_id = #{bizId}
+    </delete>
+
+    <select id="queryLikeRecordByBizIds" resultType="java.lang.Long">
+        select biz_id
+        from liked_record
+        where user_id = #{userId}
+          and biz_id = #{bizId}
+    </select>
+</mapper>
