@@ -31,6 +31,10 @@ spring:
           uri: lb://remark-service
           predicates:
             - Path=/rs/**
+        - id: ls
+          uri: lb://learning-service
+          predicates:
+            - Path=/ls/**
       default-filters:
         - StripPrefix=1 # 转发时去掉第一个路径例如去掉/us
 

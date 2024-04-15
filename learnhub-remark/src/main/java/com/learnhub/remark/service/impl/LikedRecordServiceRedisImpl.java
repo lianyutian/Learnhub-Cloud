@@ -3,6 +3,7 @@ package com.learnhub.remark.service.impl;
 import com.learnhub.api.dto.remark.RemarkMQMessageDTO2;
 import com.learnhub.api.dto.remark.RemarkMQMessagesDTO;
 import com.learnhub.common.autoconfigure.mq.RocketMQEnhanceTemplate;
+import com.learnhub.common.constants.MqConstants;
 import com.learnhub.common.exceptions.DbException;
 import com.learnhub.common.utils.CollUtils;
 import com.learnhub.common.utils.StringUtils;
@@ -118,7 +119,7 @@ public class LikedRecordServiceRedisImpl implements ILikedRecordService {
         // 3.发送MQ消息
         rocketMQEnhanceTemplate.send(
                 LIKE_RECORD_TOPIC,
-                StringUtils.format(LIKED_TIMES_KEY_TEMPLATE, bizType),
+                MqConstants.Tag.QA_LIKED_TIMES_TAG,
                 remarkMQMessagesDTO
         );
     }

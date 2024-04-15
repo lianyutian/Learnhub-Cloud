@@ -24,7 +24,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/likes")
 @RequiredArgsConstructor
-@Tag(name = "点赞业务相关接口", description = "点赞业务相关接口")
+@Tag(name = "LikedRecordController", description = "点赞业务相关接口")
 public class LikedRecordController {
     private final ILikedRecordService likedRecordService;
 

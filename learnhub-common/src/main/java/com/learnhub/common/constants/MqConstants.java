@@ -14,7 +14,7 @@ public interface MqConstants {
         String ORDER_EXCHANGE = "order.topic";
 
         /*学习有关的交换机*/
-        String LEARNING_EXCHANGE = "learning.topic";
+        String LEARNING_TOPIC = "learning.topic";
 
         /*信息中心短信相关的交换机*/
         String SMS_EXCHANGE = "sms.direct";
@@ -36,6 +36,13 @@ public interface MqConstants {
 
     interface Queue {
         String ERROR_QUEUE_TEMPLATE = "error.{}.queue";
+    }
+
+    interface Tag {
+
+        /*问答*/
+        String QA_LIKED_TIMES_TAG = "QA_times_changed";
+        String SIGN_IN_TAG = "sign_in";
     }
 
     interface Key {
