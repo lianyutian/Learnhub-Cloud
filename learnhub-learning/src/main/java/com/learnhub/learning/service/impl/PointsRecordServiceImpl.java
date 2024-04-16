@@ -1,8 +1,11 @@
 package com.learnhub.learning.service.impl;
 
+import com.learnhub.common.utils.CollUtils;
 import com.learnhub.common.utils.DateUtils;
+import com.learnhub.common.utils.UserContext;
 import com.learnhub.learning.constants.RedisConstants;
 import com.learnhub.learning.domain.po.PointsRecord;
+import com.learnhub.learning.domain.vo.PointsStatisticsVO;
 import com.learnhub.learning.enums.PointsRecordType;
 import com.learnhub.learning.mapper.PointsRecordMapper;
 import com.learnhub.learning.service.IPointsRecordService;
@@ -11,6 +14,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author liming
@@ -55,5 +60,31 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
         // 4.更新总积分到Redis
         String key = RedisConstants.POINTS_BOARD_KEY_PREFIX + now.format(DateUtils.POINTS_BOARD_SUFFIX_FORMATTER);
         redisTemplate.opsForZSet().incrementScore(key, userId.toString(), realPoints);
+    }
+
+    @Override
+    public List<PointsStatisticsVO> queryMyPointsToday() {
+        // 1.获取用户
+        Long userId = UserContext.getUserId();
+        // 2.获取日期
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime begin = DateUtils.getDayStartTime(now);
+        LocalDateTime end = DateUtils.getDayEndTime(now);
+        // 3.查询
+        List<PointsRecord> pointsRecordList = pointsRecordMapper.queryUserPointsByDate(userId, begin, end);
+
+        if (CollUtils.isEmpty(pointsRecordList)) {
+            return CollUtils.emptyList();
+        }
+        // 4.封装返回
+        List<PointsStatisticsVO> vos = new ArrayList<>(pointsRecordList.size());
+        for (PointsRecord pointsRecord : pointsRecordList) {
+            PointsStatisticsVO vo = new PointsStatisticsVO();
+            vo.setType(pointsRecord.getType().getDesc());
+            vo.setMaxPoints(pointsRecord.getType().getMaxPoints());
+            vo.setPoints(pointsRecord.getPoints());
+            vos.add(vo);
+        }
+        return vos;
     }
 }

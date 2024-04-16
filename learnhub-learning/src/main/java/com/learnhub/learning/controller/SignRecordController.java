@@ -3,9 +3,9 @@ package com.learnhub.learning.controller;
 import com.learnhub.learning.domain.vo.SignResultVO;
 import com.learnhub.learning.service.ISignRecordService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +23,15 @@ public class SignRecordController {
 
     private final ISignRecordService signRecordService;
 
-    @PostMapping("addSign")
+    @PostMapping("addSignRecords")
     @Operation(summary = "签到功能接口")
     public SignResultVO addSignRecords(){
         return signRecordService.addSignRecords();
+    }
+
+    @GetMapping("querySignRecords")
+    @Operation(summary = "查询签到记录")
+    public Byte[] querySignRecords(){
+        return signRecordService.querySignRecords();
     }
 }

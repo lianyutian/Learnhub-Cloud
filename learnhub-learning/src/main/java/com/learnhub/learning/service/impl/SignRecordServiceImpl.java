@@ -78,6 +78,36 @@ public class SignRecordServiceImpl implements ISignRecordService {
         return vo;
     }
 
+    @Override
+    public Byte[] querySignRecords() {
+        // 1.获取登录用户
+        Long userId = UserContext.getUserId();
+        // 2.获取日期
+        LocalDate now = LocalDate.now();
+        int dayOfMonth = now.getDayOfMonth();
+        // 3.拼接key
+        String key = RedisConstants.SIGN_RECORD_KEY_PREFIX
+                + userId
+                + now.format(DateUtils.SIGN_DATE_SUFFIX_FORMATTER);
+        // 4.读取
+        List<Long> result = redisTemplate.opsForValue()
+                .bitField(key, BitFieldSubCommands.create().get(
+                        BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth)).valueAt(0));
+        if (CollUtils.isEmpty(result)) {
+            return new Byte[0];
+        }
+        int num = result.get(0).intValue();
+
+        Byte[] signRecord = new Byte[dayOfMonth];
+        int pos = dayOfMonth - 1;
+        while (pos >= 0){
+            signRecord[pos--] = (byte)(num & 1);
+            // 把数字右移一位，抛弃最后一个bit位，继续下一个bit位
+            num >>>= 1;
+        }
+        return signRecord;
+    }
+
     /**
      * 计算连续签到天数
      *

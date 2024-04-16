@@ -1,6 +1,9 @@
 package com.learnhub.learning.service;
 
+import com.learnhub.learning.domain.vo.PointsStatisticsVO;
 import com.learnhub.learning.enums.PointsRecordType;
+
+import java.util.List;
 
 /**
  * @author liming
@@ -17,4 +20,11 @@ public interface IPointsRecordService {
      * @param type 积分类型
      */
     void addPointsRecord(Long userId, int points, PointsRecordType type);
+
+    /**
+     * 查询我的今日积分
+     *
+     * @return 今日积分
+     */
+    List<PointsStatisticsVO> queryMyPointsToday();
 }

@@ -16,4 +16,11 @@
         INSERT INTO points_record(user_id, type, points)
         VALUES (#{userId}, #{type}, #{points})
     </insert>
+
+    <select id="queryUserPointsByDate" resultType="com.learnhub.learning.domain.po.PointsRecord">
+        SELECT * FROM points_record where user_id = #{userId}
+        <if test="begin != null and end != null">
+            and create_time between (#{begin}, #{end})
+        </if>
+    </select>
 </mapper>
