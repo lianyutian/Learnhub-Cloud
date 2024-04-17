@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("boards")
 @RequiredArgsConstructor
-@Tag(name = "PointsBoardController", description = "积分排行榜")
+@Tag(name = "积分排行榜相关接口")
 public class PointsBoardController {
 
     private final IPointsBoardService pointsBoardService;

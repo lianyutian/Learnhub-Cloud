@@ -65,7 +65,7 @@ public class SignRecordServiceImpl implements ISignRecordService {
         signInMessage.setSource(MqConstants.Source.SIGN_IN_SOURCE);
         signInMessage.setUserId(userId);
         signInMessage.setPoints(rewardPoints + 1);
-        // 4.保存积分明细记录
+        // 4.发送积分消息
         rocketMQEnhanceTemplate.send(
                 LEARNING_TOPIC,
                 MqConstants.Tag.SIGN_IN_TAG,
@@ -89,10 +89,12 @@ public class SignRecordServiceImpl implements ISignRecordService {
         String key = RedisConstants.SIGN_RECORD_KEY_PREFIX
                 + userId
                 + now.format(DateUtils.SIGN_DATE_SUFFIX_FORMATTER);
-        // 4.读取
+        // 4.读取 BITFIELD key GET u[dayOfMonth] 0
         List<Long> result = redisTemplate.opsForValue()
-                .bitField(key, BitFieldSubCommands.create().get(
-                        BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth)).valueAt(0));
+                .bitField(key,
+                        BitFieldSubCommands.create().get(
+                            BitFieldSubCommands.BitFieldType.unsigned(dayOfMonth)
+                        ).valueAt(0));
         if (CollUtils.isEmpty(result)) {
             return new Byte[0];
         }

@@ -3,6 +3,8 @@ package com.learnhub.user.mapper;
 import com.learnhub.user.domain.po.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author : [lm]
  * @version : [v1.0]
@@ -33,4 +35,12 @@ public interface UserDetailMapper {
      * @param detail 用户详情
      */
     void saveUserDetail(UserDetail detail);
+
+    /**
+     * 根据用户id列表查询用户详情
+     *
+     * @param ids 用户id列表
+     * @return 用户详情列表
+     */
+    List<UserDetail> queryUserDetailByIds(List<Long> ids);
 }

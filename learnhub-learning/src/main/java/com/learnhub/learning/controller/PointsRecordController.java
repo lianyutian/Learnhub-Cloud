@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0
  * @since 2024/4/16 9:32
  */
-@Tag(name = "PointsRecordController", description = "积分记录相关接口")
+@Tag(name = "积分记录相关接口")
 @RequiredArgsConstructor
 @RequestMapping("points")
 @RestController

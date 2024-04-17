@@ -6,6 +6,7 @@ import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.utils.CollUtils;
 import com.learnhub.common.utils.DateUtils;
 import com.learnhub.common.utils.UserContext;
+import com.learnhub.learning.constants.LearningConstants;
 import com.learnhub.learning.constants.RedisConstants;
 import com.learnhub.learning.domain.po.PointsBoard;
 import com.learnhub.learning.domain.query.PointsBoardQuery;
@@ -73,7 +74,7 @@ public class PointsBoardServiceImpl implements IPointsBoardService {
         }
         // 4.2.查询用户信息
         Set<Long> uIds = list.stream().map(PointsBoard::getUserId).collect(Collectors.toSet());
-        List<UserDTO> users = userClient.queryUserByIds(uIds);
+        List<UserDTO> users = userClient.queryUserDetailByIds(uIds);
         Map<Long, String> userMap = new HashMap<>(uIds.size());
         if(CollUtils.isNotEmpty(users)) {
             userMap = users.stream().collect(Collectors.toMap(UserDTO::getId, UserDTO::getName));
@@ -89,6 +90,11 @@ public class PointsBoardServiceImpl implements IPointsBoardService {
         }
         pointsBoardVO.setBoardList(items);
         return pointsBoardVO;
+    }
+
+    @Override
+    public void createPointsBoardTableBySeason(Integer season) {
+        pointsBoardMapper.createPointsBoardTable(LearningConstants.POINTS_BOARD_TABLE_PREFIX + season);
     }
 
     public List<PointsBoard> queryCurrentBoardList(String key, Integer pageNo, Integer pageSize) {

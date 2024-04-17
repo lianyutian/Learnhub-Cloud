@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.learning.mapper.PointsBoardSeasonMapper">
+
+    <select id="querySeasonByTime" resultType="java.lang.Integer">
+        SELECT id
+        FROM points_board_season
+        WHERE begin_time &lt;= #{time}
+          AND end_time &gt;= #{time}
+    </select>
+</mapper>

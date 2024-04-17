@@ -6,6 +6,8 @@ import com.learnhub.user.service.IUserDetailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author : [lm]
  * @version : [v1.0]
@@ -24,5 +26,10 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     public Long queryUserRoleIdById(Long id) {
         return userDetailMapper.queryUserRoleIdById(id);
+    }
+
+    @Override
+    public List<UserDetail> queryUserDetailByIds(List<Long> ids) {
+        return userDetailMapper.queryUserDetailByIds(ids);
     }
 }

@@ -67,4 +67,35 @@
                 #{photo},
                 #{roleId})
     </insert>
+
+    <select id="queryUserDetailByIds" resultType="com.learnhub.user.domain.po.UserDetail">
+        select u.cell_phone,
+               u.status,
+               u.create_time,
+               u.update_time,
+               u.creater,
+               u.updater,
+               u.id,
+               u.username,
+               ud.type,
+               ud.name,
+               ud.gender,
+               ud.icon,
+               ud.email,
+               ud.qq,
+               ud.birthday,
+               ud.job,
+               ud.province,
+               ud.city,
+               ud.district,
+               ud.intro,
+               ud.photo,
+               ud.role_id
+        from `user` u
+                 left join user_detail ud on u.id = ud.id
+        where u.id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

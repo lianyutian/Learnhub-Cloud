@@ -2,9 +2,12 @@ package com.learnhub.api.client.user.fallback;
 
 import com.learnhub.api.client.user.UserClient;
 import com.learnhub.api.dto.user.LoginFormDTO;
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
+
+import java.util.List;
 
 /**
  * @author liming
@@ -19,6 +22,11 @@ public class UserClientFallback implements FallbackFactory<UserClient> {
         return new UserClient() {
             @Override
             public LoginUserDTO queryLoginUser(LoginFormDTO loginDTO, boolean isStaff) {
+                return null;
+            }
+
+            @Override
+            public List<UserDTO> queryUserDetailByIds(Iterable<Long> ids) {
                 return null;
             }
         };

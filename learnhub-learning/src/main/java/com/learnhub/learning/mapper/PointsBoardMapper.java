@@ -26,4 +26,11 @@ public interface PointsBoardMapper {
      * @param query 分页查询参数
      */
     void queryPointsBoardsByPage(PointsBoardQuery query);
+
+    /**
+     * 创建赛季积分排行榜表
+     *
+     * @param tableName 表名
+     */
+    void createPointsBoardTable(String tableName);
 }

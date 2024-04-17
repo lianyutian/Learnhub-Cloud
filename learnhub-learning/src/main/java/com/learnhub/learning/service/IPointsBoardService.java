@@ -16,4 +16,11 @@ public interface IPointsBoardService {
      * @return 积分排行榜
      */
     PointsBoardVO queryPointsBoardBySeason(PointsBoardQuery query);
+
+    /**
+     * 创建指定赛季的积分排行榜
+     *
+     * @param season 赛季
+     */
+    void createPointsBoardTableBySeason(Integer season);
 }

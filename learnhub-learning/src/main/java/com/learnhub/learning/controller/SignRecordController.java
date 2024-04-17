@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("sign")
 @RequiredArgsConstructor
-@Tag(name = "SignRecordController", description = "签到记录相关接口")
+@Tag(name = "签到记录相关接口")
 public class SignRecordController {
 
     private final ISignRecordService signRecordService;

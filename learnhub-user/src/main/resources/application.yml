@@ -25,6 +25,7 @@ learnhub:
       excludeLoginPaths:
        - /user/queryLoginUser/{isStaff}
        - /user/saveUser
+       - /user/list
 
 
 
