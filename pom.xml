@@ -44,6 +44,7 @@
         <rocketmq.client.version>4.9.4</rocketmq.client.version>
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
+        <xxl.job.version>2.4.0</xxl.job.version>
     </properties>
 
     <!-- 对依赖包进行管理 -->

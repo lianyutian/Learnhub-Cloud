@@ -1,6 +1,8 @@
 package com.learnhub.remark.task;
 
 import com.learnhub.remark.service.ILikedRecordService;
+import com.xxl.job.core.context.XxlJobHelper;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -29,5 +31,10 @@ public class LikedTimesCheckTask {
         for (String bizType : BIZ_TYPES) {
             recordService.readLikedTimesAndSendMessage(bizType, MAX_BIZ_SIZE);
         }
+    }
+
+    @XxlJob("demoJobHandler")
+    public void demoJobHandler() throws Exception {
+        XxlJobHelper.log("XXL-JOB, Hello World.");
     }
 }

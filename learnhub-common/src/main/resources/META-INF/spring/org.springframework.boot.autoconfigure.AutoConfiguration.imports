@@ -3,3 +3,4 @@ com.learnhub.common.autoconfigure.mybatis.IdGeneratorConfig
 org.apache.rocketmq.spring.autoconfigure.RocketMQAutoConfiguration
 com.learnhub.common.autoconfigure.mq.RocketMQConfig
 com.learnhub.common.autoconfigure.mq.RocketMQEnhanceAutoConfiguration
+com.learnhub.common.autoconfigure.xxljob.XxlJobConfig
