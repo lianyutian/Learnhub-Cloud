@@ -97,6 +97,7 @@ public class PointsBoardServiceImpl implements IPointsBoardService {
         pointsBoardMapper.createPointsBoardTable(LearningConstants.POINTS_BOARD_TABLE_PREFIX + season);
     }
 
+    @Override
     public List<PointsBoard> queryCurrentBoardList(String key, Integer pageNo, Integer pageSize) {
         // 1.计算分页
         int from = (pageNo - 1) * pageSize;

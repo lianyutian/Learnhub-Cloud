@@ -1,7 +1,10 @@
 package com.learnhub.learning.service;
 
+import com.learnhub.learning.domain.po.PointsBoard;
 import com.learnhub.learning.domain.query.PointsBoardQuery;
 import com.learnhub.learning.domain.vo.PointsBoardVO;
+
+import java.util.List;
 
 /**
  * @author liming
@@ -23,4 +26,14 @@ public interface IPointsBoardService {
      * @param season 赛季
      */
     void createPointsBoardTableBySeason(Integer season);
+
+    /**
+     * 查询当前赛季的积分排行榜
+     *
+     * @param key      关键字
+     * @param pageNo   页码
+     * @param pageSize 页大小
+     * @return 积分排行榜
+     */
+    List<PointsBoard> queryCurrentBoardList(String key, Integer pageNo, Integer pageSize);
 }

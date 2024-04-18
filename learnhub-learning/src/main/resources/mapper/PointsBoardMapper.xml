@@ -32,4 +32,12 @@
             ENGINE = InnoDB
             ROW_FORMAT = DYNAMIC
     </insert>
+
+    <insert id="saveBatch">
+        INSERT INTO `${tableName}` (id, user_id, points)
+        VALUES
+        <foreach collection="boardList" item="board" separator=",">
+            (#{id}, #{board.userId}, #{board.points})
+        </foreach>
+    </insert>
 </mapper>

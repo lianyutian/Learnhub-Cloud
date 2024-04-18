@@ -4,6 +4,8 @@ import com.learnhub.learning.domain.po.PointsBoard;
 import com.learnhub.learning.domain.query.PointsBoardQuery;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author liming
  * @version 1.0
@@ -33,4 +35,12 @@ public interface PointsBoardMapper {
      * @param tableName 表名
      */
     void createPointsBoardTable(String tableName);
+
+    /**
+     * 批量保存赛季积分排行榜
+     *
+     * @param tableName 积分榜单表名
+     * @param boardList 赛季积分排行榜
+     */
+    void saveBatch(String tableName, List<PointsBoard> boardList);
 }
