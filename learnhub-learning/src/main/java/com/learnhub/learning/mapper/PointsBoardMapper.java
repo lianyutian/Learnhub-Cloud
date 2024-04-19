@@ -25,9 +25,10 @@ public interface PointsBoardMapper {
     /**
      * 根据赛季id查询积分排行榜
      *
+     * @param tableName 历史积分榜单表名
      * @param query 分页查询参数
      */
-    void queryPointsBoardsByPage(PointsBoardQuery query);
+    void queryPointsBoardsByPage(String tableName, PointsBoardQuery query);
 
     /**
      * 创建赛季积分排行榜表

@@ -8,6 +8,7 @@ import com.learnhub.learning.domain.po.PointsRecord;
 import com.learnhub.learning.domain.vo.PointsStatisticsVO;
 import com.learnhub.learning.enums.PointsRecordType;
 import com.learnhub.learning.mapper.PointsRecordMapper;
+import com.learnhub.learning.service.IPointsBoardSeasonService;
 import com.learnhub.learning.service.IPointsRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -28,6 +29,7 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
 
     private final PointsRecordMapper pointsRecordMapper;
     private final StringRedisTemplate redisTemplate;
+    private final IPointsBoardSeasonService pointsBoardSeasonService;
 
     @Override
     public void addPointsRecord(Long userId, int points, PointsRecordType type) {
@@ -56,6 +58,8 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
         pointsRecord.setPoints(realPoints);
         pointsRecord.setUserId(userId);
         pointsRecord.setType(type);
+        Integer season = pointsBoardSeasonService.querySeasonByTime(now);
+        pointsRecord.setSeason(season);
         pointsRecordMapper.savePointsRecord(pointsRecord);
         // 4.更新总积分到Redis
         String key = RedisConstants.POINTS_BOARD_KEY_PREFIX + now.format(DateUtils.POINTS_BOARD_SUFFIX_FORMATTER);
@@ -86,5 +90,20 @@ public class PointsRecordServiceImpl implements IPointsRecordService {
             vos.add(vo);
         }
         return vos;
+    }
+
+    @Override
+    public void createPointsRecordTableOfLastSeason(Integer season) {
+        pointsRecordMapper.createPointsRecordTableOfLastSeason(season);
+    }
+
+    @Override
+    public void migrationPointsRecord(Integer season) {
+        pointsRecordMapper.migrationPointsRecord(season);
+    }
+
+    @Override
+    public void clearPointsRecord(Integer season) {
+        pointsRecordMapper.clearPointsRecord(season);
     }
 }

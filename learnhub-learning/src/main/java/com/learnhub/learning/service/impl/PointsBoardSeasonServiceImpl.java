@@ -1,11 +1,13 @@
 package com.learnhub.learning.service.impl;
 
+import com.learnhub.learning.domain.po.PointsBoardSeason;
 import com.learnhub.learning.mapper.PointsBoardSeasonMapper;
 import com.learnhub.learning.service.IPointsBoardSeasonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author liming
@@ -21,5 +23,10 @@ public class PointsBoardSeasonServiceImpl implements IPointsBoardSeasonService {
     @Override
     public Integer querySeasonByTime(LocalDateTime time) {
         return pointsBoardSeasonMapper.querySeasonByTime(time);
+    }
+
+    @Override
+    public List<PointsBoardSeason> queryPointsBoardSeasons(LocalDateTime now) {
+        return pointsBoardSeasonMapper.queryPointsBoardSeasons(now);
     }
 }

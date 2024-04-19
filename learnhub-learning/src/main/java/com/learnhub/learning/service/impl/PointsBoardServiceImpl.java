@@ -158,10 +158,10 @@ public class PointsBoardServiceImpl implements IPointsBoardService {
 
     private List<PointsBoard> queryHistoryBoardList(PointsBoardQuery query) {
         // 1.计算表名
-        TableInfoContext.setInfo(POINTS_BOARD_TABLE_PREFIX + query.getSeason());
+        String tableName = POINTS_BOARD_TABLE_PREFIX + query.getSeason();
         // 2.查询数据
         Page<PointsBoard> page = query.toMpPage().doSelectPage(
-                () -> pointsBoardMapper.queryPointsBoardsByPage(query)
+                () -> pointsBoardMapper.queryPointsBoardsByPage(tableName, query)
         );
         // 3.数据处理
         List<PointsBoard> records = page.getResult();

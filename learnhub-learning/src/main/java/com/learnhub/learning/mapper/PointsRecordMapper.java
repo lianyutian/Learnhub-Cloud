@@ -41,4 +41,25 @@ public interface PointsRecordMapper {
      * @return 积分
      */
     List<PointsRecord> queryUserPointsByDate(Long userId, LocalDateTime begin, LocalDateTime end);
+
+    /**
+     * 创建指定赛季的积分记录表
+     *
+     * @param season 赛季
+     */
+    void createPointsRecordTableOfLastSeason(Integer season);
+
+    /**
+     * 迁移指定赛季的积分记录
+     *
+     * @param season 赛季
+     */
+    void migrationPointsRecord(Integer season);
+
+    /**
+     * 清空指定赛季的积分记录
+     *
+     * @param season 赛季
+     */
+    void clearPointsRecord(Integer season);
 }

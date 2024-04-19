@@ -10,7 +10,7 @@
 
     <select id="queryPointsBoardsByPage">
         SELECT id, user_id, points
-        FROM points_board
+        FROM `${tableName}`
         <where>
             <if test="season != null">
                 season = #{season}

@@ -8,4 +8,12 @@
         WHERE begin_time &lt;= #{time}
           AND end_time &gt;= #{time}
     </select>
+
+    <select id="queryPointsBoardSeasons" resultType="com.learnhub.learning.domain.po.PointsBoardSeason">
+        SELECT id, name, begin_time, end_time
+        FROM points_board_season
+        WHERE begin_time &lt;= #{now}
+        ORDER BY begin_time DESC
+    </select>
+
 </mapper>

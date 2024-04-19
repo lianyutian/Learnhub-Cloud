@@ -1,6 +1,9 @@
 package com.learnhub.learning.service;
 
+import com.learnhub.learning.domain.po.PointsBoardSeason;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author liming
@@ -15,4 +18,11 @@ public interface IPointsBoardSeasonService {
      * @return 赛季
      */
     Integer querySeasonByTime(LocalDateTime time);
+
+    /**
+     * 查询赛季信息列表
+     *
+     * @return 赛季信息列表
+     */
+    List<PointsBoardSeason> queryPointsBoardSeasons(LocalDateTime now);
 }

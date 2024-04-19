@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learnhub.learning.mapper.PointsRecordMapper">
-
     <select id="queryUserPointsByTypeAndDate" resultType="java.lang.Integer">
         SELECT SUM(points) FROM points_record where user_id = #{userId}
         <if test="type != null">
@@ -13,8 +12,8 @@
     </select>
 
     <insert id="savePointsRecord">
-        INSERT INTO points_record(user_id, type, points)
-        VALUES (#{userId}, #{type}, #{points})
+        INSERT INTO points_record(user_id, type, points, season)
+        VALUES (#{userId}, #{type}, #{points}, #{season})
     </insert>
 
     <select id="queryUserPointsByDate" resultType="com.learnhub.learning.domain.po.PointsRecord">
@@ -23,4 +22,18 @@
             and create_time between (#{begin}, #{end})
         </if>
     </select>
+
+    <insert id="createPointsRecordTableOfLastSeason">
+        CREATE TABLE IF NOT EXISTS points_record_${season}
+        LIKE points_record
+    </insert>
+
+    <insert id="migrationPointsRecord">
+        INSERT INTO points_record_${season}
+        SELECT * FROM points_record where season = #{season}
+    </insert>
+
+    <delete id="clearPointsRecord">
+        DELETE FROM points_record where season = #{season}
+    </delete>
 </mapper>

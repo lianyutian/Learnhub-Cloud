@@ -37,6 +37,11 @@ public class PointsRecord {
     private Integer points;
 
     /**
+     * 积分所属赛季
+     */
+    private Integer season;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

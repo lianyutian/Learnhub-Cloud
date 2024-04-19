@@ -27,4 +27,25 @@ public interface IPointsRecordService {
      * @return 今日积分
      */
     List<PointsStatisticsVO> queryMyPointsToday();
+
+    /**
+     * 创建指定赛季的积分记录表
+     *
+     * @param season 赛季
+     */
+    void createPointsRecordTableOfLastSeason(Integer season);
+
+    /**
+     * 迁移指定赛季的积分记录
+     *
+     * @param season 赛季
+     */
+    void migrationPointsRecord(Integer season);
+
+    /**
+     * 清除指定赛季的积分记录
+     *
+     * @param season 赛季
+     */
+    void clearPointsRecord(Integer season);
 }

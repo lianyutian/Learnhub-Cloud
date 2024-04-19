@@ -27,4 +27,5 @@ public class SignInMessage extends BaseMessage {
      * 积分
      */
     private Integer points;
+
 }
