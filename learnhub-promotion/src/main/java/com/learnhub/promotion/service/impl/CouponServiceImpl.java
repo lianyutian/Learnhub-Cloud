@@ -42,7 +42,7 @@ public class CouponServiceImpl implements ICouponService {
 
         if (!dto.getSpecific()) {
             // 没有范围限定
-            return;
+            throw new BadRequestException("没有限定使用范围");
         }
         Long couponId = coupon.getId();
         // 2.保存限定范围
