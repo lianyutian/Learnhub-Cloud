@@ -17,6 +17,7 @@
         <module>learnhub-auth/learnhub-auth-resource-sdk</module>
         <module>learnhub-remark</module>
         <module>learnhub-learning</module>
+        <module>learnhub-promotion</module>
     </modules>
 
     <!-- 继承 Spring Boot 父工程 -->

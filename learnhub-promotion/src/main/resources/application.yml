@@ -1,0 +1,55 @@
+server:
+  port: 8086  #端口
+  tomcat:
+    uri-encoding: UTF-8   #服务编码
+spring:
+  profiles:
+    active: dev
+  application:
+    name: promotion-service
+  # mysql配置 start ====================================================================================================
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/learnhub?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  # mysql配置 end ======================================================================================================
+  # redis配置 start ====================================================================================================
+  data:
+    redis:
+      host: 127.0.0.1
+      lettuce:
+        pool:
+          max-active: 8 # 最大连接数，负值表示没有限制，默认8
+          max-idle: 8   # 最大空闲连接，默认8
+          min-idle: 1   # 最小空闲连接，默认0
+          max-wait: 300 # 最大阻塞等待时间，负值表示没限制，默认-1
+  # redis配置 end ======================================================================================================
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: com.learnhub.common.autoconfigure.mybatis.AutoGenericEnumTypeHandler
+learnhub:
+  auth:
+    resource:
+      enable: true
+  xxl-job:
+    access-token: default_token
+    admin:
+      address: http://127.0.0.1:8090/xxl-job-admin
+    executor:
+      app name: ${spring.application.name}
+      log-retention-days: 10
+      logPath: job/${spring.application.name}
+rocketmq:
+  enable: true
+  #name-server: 192.168.106.1:9876 # 本机ip
+  name-server: 192.168.3.2:9876
+  producer:
+    group: remark_group
+    send-message-timeout: 30000
+
+
+
+
