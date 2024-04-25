@@ -18,4 +18,12 @@ public interface CouponScopeMapper {
      * @param list 优惠券范围
      */
     void saveCouponScopes(List<CouponScope> list);
+
+    /**
+     * 根据优惠券id查询优惠券范围
+     *
+     * @param id 优惠券id
+     * @return 优惠券范围
+     */
+    List<CouponScope> queryCouponScopesByCouponId(Long id);
 }

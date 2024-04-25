@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.promotion.mapper.ExchangeCodeMapper">
+
+    <insert id="saveExchangeCodes">
+        insert into exchange_code(
+        id,
+        code,
+        status,
+        type,
+        exchange_target_id,
+        create_time,
+        expired_time,
+        user_id,
+        update_time
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{id}, #{item.code}, #{item.status}, #{item.type}, #{item.exchangeTargetId}, #{item.createTime},
+            #{item.expiredTime}, #{item.userId}, #{item.updateTime})
+        </foreach>
+    </insert>
+</mapper>

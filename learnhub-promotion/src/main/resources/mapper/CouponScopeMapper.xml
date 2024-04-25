@@ -10,4 +10,10 @@
             (#{item.couponId}, #{item.bizId}, #{item.type})
         </foreach>
     </insert>
+
+    <select id="queryCouponScopesByCouponId" resultType="com.learnhub.promotion.domain.po.CouponScope">
+        select *
+        from coupon_scope
+        where coupon_id = #{id}
+    </select>
 </mapper>
