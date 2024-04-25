@@ -42,7 +42,7 @@ public class UserController {
 
     @Operation(summary = "新增用户，一般是员工或教师")
     @PostMapping("/saveUser")
-    public Long saveUser(@Valid @RequestBody UserDTO userDTO){
+    public Long saveUser(@Valid @RequestBody UserDTO userDTO) {
         userDTO.setId(null);
         return userService.saveUser(userDTO);
     }
@@ -57,13 +57,19 @@ public class UserController {
     @GetMapping("/list")
     public List<UserDTO> queryUserDetailByIds(
             @Parameter(description = "用户id的列表") @RequestParam("ids") List<Long> ids) {
-        if(CollUtils.isEmpty(ids)){
+        if (CollUtils.isEmpty(ids)) {
             return CollUtils.emptyList();
         }
         // 1.查询列表
         List<UserDetail> list = userDetailService.queryUserDetailByIds(ids);
         // 2.转换
         return BeanUtils.copyList(list, UserDTO.class, (d, u) -> u.setType(d.getType().getValue()));
+    }
+
+    @Operation(summary = "根据用户名查询用户信息")
+    @PostMapping("/queryUserDetailByName")
+    public UserDTO queryUserDetailByName(String username) {
+        return userDetailService.queryUserByName(username);
     }
 
 }

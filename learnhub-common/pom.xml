@@ -78,7 +78,6 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>${reflections.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>

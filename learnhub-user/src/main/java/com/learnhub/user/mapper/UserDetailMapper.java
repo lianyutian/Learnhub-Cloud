@@ -1,5 +1,6 @@
 package com.learnhub.user.mapper;
 
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.user.domain.po.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -43,4 +44,12 @@ public interface UserDetailMapper {
      * @return 用户详情列表
      */
     List<UserDetail> queryUserDetailByIds(List<Long> ids);
+
+    /**
+     * 根据用户名查询用户详情
+     *
+     * @param username 用户名
+     * @return 用户详情
+     */
+    UserDTO queryUserByName(String username);
 }

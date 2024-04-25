@@ -1,5 +1,6 @@
 package com.learnhub.user.service;
 
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.user.domain.po.UserDetail;
 
 import java.util.List;
@@ -34,4 +35,12 @@ public interface IUserDetailService {
      * @return 用户详情
      */
     List<UserDetail> queryUserDetailByIds(List<Long> ids);
+
+    /**
+     * 根据用户名查询用户详情
+     *
+     * @param username 用户名
+     * @return UserDTO
+     */
+    UserDTO queryUserByName(String username);
 }

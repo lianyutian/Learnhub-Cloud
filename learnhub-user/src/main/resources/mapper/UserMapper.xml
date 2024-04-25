@@ -26,6 +26,17 @@
           and cell_phone = #{cellPhone}
     </select>
 
+    <select id="queryUserByName" resultType="com.learnhub.user.domain.po.User">
+        select id,
+               username,
+               cell_phone,
+               password,
+               status,
+               type
+        from user
+        where username = #{username}
+    </select>
+
     <insert id="saveUser">
         insert into user(id, username, cell_phone, password, status, type)
         values (#{id},
@@ -35,6 +46,7 @@
                 #{status},
                 #{type})
     </insert>
+
 
 
 </mapper>

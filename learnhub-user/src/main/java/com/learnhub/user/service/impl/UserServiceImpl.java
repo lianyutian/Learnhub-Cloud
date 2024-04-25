@@ -100,7 +100,7 @@ public class UserServiceImpl implements IUserService {
             throw new BadRequestException(INVALID_UN);
         }
         // 2.根据用户名和手机号查询
-        User user = userMapper.queryUserByNameAndPhone(username, cellPhone);
+        User user = userMapper.queryUserByName(username);
         AssertUtils.isNotNull(user, INVALID_UN_OR_PW);
         // 3.校验是否禁用
         if (user.getStatus() == UserStatus.FROZEN) {

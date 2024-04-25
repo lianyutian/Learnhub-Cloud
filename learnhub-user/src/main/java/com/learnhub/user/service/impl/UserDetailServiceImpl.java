@@ -1,5 +1,6 @@
 package com.learnhub.user.service.impl;
 
+import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.user.domain.po.UserDetail;
 import com.learnhub.user.mapper.UserDetailMapper;
 import com.learnhub.user.service.IUserDetailService;
@@ -31,5 +32,10 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     public List<UserDetail> queryUserDetailByIds(List<Long> ids) {
         return userDetailMapper.queryUserDetailByIds(ids);
+    }
+
+    @Override
+    public UserDTO queryUserByName(String username) {
+        return userDetailMapper.queryUserByName(username);
     }
 }

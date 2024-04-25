@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2024/4/3 15:56
  */
 @Configuration
-@ConditionalOnProperty(name = "mybatis")
+@ConditionalOnClass(Interceptor.class)
 public class IdGeneratorConfig {
     @Bean
     public IdGeneratorOptions idGeneratorOptions() {

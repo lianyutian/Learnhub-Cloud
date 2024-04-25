@@ -98,4 +98,29 @@
             #{id}
         </foreach>
     </select>
+
+    <select id="queryUserByName" resultType="com.learnhub.api.dto.user.UserDTO">
+        select u.id,
+               u.username,
+               u.cell_phone,
+               u.password,
+               u.status,
+               u.type,
+               ud.name,
+               ud.gender,
+               ud.icon,
+               ud.email,
+               ud.qq,
+               ud.birthday,
+               ud.job,
+               ud.province,
+               ud.city,
+               ud.district,
+               ud.intro,
+               ud.photo,
+               ud.role_id
+        from `user` u
+                 left join user_detail ud on u.id = ud.id
+        where u.username = #{username}
+    </select>
 </mapper>
