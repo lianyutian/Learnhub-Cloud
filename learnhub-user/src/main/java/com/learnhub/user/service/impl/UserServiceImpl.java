@@ -10,8 +10,10 @@ import com.learnhub.common.exceptions.ForbiddenException;
 import com.learnhub.common.utils.AssertUtils;
 import com.learnhub.common.utils.BeanUtils;
 import com.learnhub.common.utils.StringUtils;
+import com.learnhub.common.utils.UserContext;
 import com.learnhub.user.domain.po.User;
 import com.learnhub.user.domain.po.UserDetail;
+import com.learnhub.user.domain.vo.UserDetailVO;
 import com.learnhub.user.enums.UserStatus;
 import com.learnhub.user.mapper.UserDetailMapper;
 import com.learnhub.user.mapper.UserMapper;
@@ -40,6 +42,7 @@ public class UserServiceImpl implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final IUserDetailService userDetailService;
     private final UserDetailMapper userDetailMapper;
+
 
     @Override
     public LoginUserDTO queryLoginUser(LoginFormDTO loginDTO, boolean isStaff) {
@@ -90,6 +93,38 @@ public class UserServiceImpl implements IUserService {
         }
         userDetailMapper.saveUserDetail(detail);
         return user.getId();
+    }
+
+    @Override
+    public UserDetailVO myInfo() {
+        // 1.获取登录用户id
+        Long userId = UserContext.getUserId();
+        if (userId == null) {
+            return null;
+        }
+        // 2.查询用户
+        UserDetail userDetail = userDetailService.queryUserDetailById(userId);
+        AssertUtils.isNotNull(userDetail, USER_ID_NOT_EXISTS);
+        // 3.封装vo
+        UserType type = userDetail.getType();
+        // 3.1.基本信息
+        UserDetailVO vo = BeanUtils.toBean(userDetail, UserDetailVO.class);
+//        // 3.2.详情信息
+//        switch (type) {
+//            case STAFF:
+//                RoleDTO roleDTO = authClient.queryRoleById(userDetail.getRoleId());
+//                vo.setRoleName(roleDTO == null ? "" : roleDTO.getName());
+//                break;
+//            case STUDENT:
+//                vo.setRoleName(STUDENT_ROLE_NAME);
+//                break;
+//            case TEACHER:
+//                vo.setRoleName(TEACHER_ROLE_NAME);
+//                break;
+//            default:
+//                break;
+//        }
+        return vo;
     }
 
     private User loginByPw(LoginFormDTO loginDTO) {

@@ -1,7 +1,10 @@
 package com.learnhub.user.service;
 
+import com.github.pagehelper.Page;
 import com.learnhub.api.dto.user.UserDTO;
+import com.learnhub.common.enums.UserType;
 import com.learnhub.user.domain.po.UserDetail;
+import com.learnhub.user.domain.query.UserPageQuery;
 
 import java.util.List;
 
@@ -43,4 +46,13 @@ public interface IUserDetailService {
      * @return UserDTO
      */
     UserDTO queryUserByName(String username);
+
+    /**
+     * 根据用户名查询用户详情
+     *
+     * @param pageQuery 分页查询参数
+     * @param userType  用户类型
+     * @return UserDTO
+     */
+    Page<UserDetail> queryUserDetailByPage(UserPageQuery pageQuery, UserType userType);
 }

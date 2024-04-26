@@ -70,29 +70,29 @@
 
     <select id="queryUserDetailByIds" resultType="com.learnhub.user.domain.po.UserDetail">
         select u.cell_phone,
-               u.status,
-               u.create_time,
-               u.update_time,
-               u.creater,
-               u.updater,
-               u.id,
-               u.username,
-               ud.type,
-               ud.name,
-               ud.gender,
-               ud.icon,
-               ud.email,
-               ud.qq,
-               ud.birthday,
-               ud.job,
-               ud.province,
-               ud.city,
-               ud.district,
-               ud.intro,
-               ud.photo,
-               ud.role_id
+        u.status,
+        u.create_time,
+        u.update_time,
+        u.creater,
+        u.updater,
+        u.id,
+        u.username,
+        ud.type,
+        ud.name,
+        ud.gender,
+        ud.icon,
+        ud.email,
+        ud.qq,
+        ud.birthday,
+        ud.job,
+        ud.province,
+        ud.city,
+        ud.district,
+        ud.intro,
+        ud.photo,
+        ud.role_id
         from `user` u
-                 left join user_detail ud on u.id = ud.id
+        left join user_detail ud on u.id = ud.id
         where u.id in
         <foreach collection="ids" item="id" open="(" separator="," close=")">
             #{id}
@@ -122,5 +122,46 @@
         from `user` u
                  left join user_detail ud on u.id = ud.id
         where u.username = #{username}
+    </select>
+
+    <select id="queryUserDetailByPage" resultType="com.learnhub.user.domain.po.UserDetail">
+        select u.cell_phone,
+        u.status,
+        u.create_time,
+        u.update_time,
+        u.creater,
+        u.updater,
+        u.id,
+        u.username,
+        ud.type,
+        ud.name,
+        ud.gender,
+        ud.icon,
+        ud.email,
+        ud.qq,
+        ud.birthday,
+        ud.job,
+        ud.province,
+        ud.city,
+        ud.district,
+        ud.intro,
+        ud.photo,
+        ud.role_id
+        from `user` u
+        left join user_detail ud on u.id = ud.id
+        <where>
+            <if test="name != null and name != ''">
+                and u.username like concat('%', #{name}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                and u.cell_phone = #{phone}
+            </if>
+            <if test="status != null">
+                and u.status = #{status}
+            </if>
+            <if test="userType != null">
+                and ud.type = #{userType}
+            </if>
+        </where>
     </select>
 </mapper>

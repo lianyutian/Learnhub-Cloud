@@ -1,7 +1,13 @@
 package com.learnhub.user.service.impl;
 
+import com.github.pagehelper.Page;
 import com.learnhub.api.dto.user.UserDTO;
+import com.learnhub.common.domain.dto.PageDTO;
+import com.learnhub.common.enums.UserType;
+import com.learnhub.common.utils.BeanUtils;
+import com.learnhub.common.utils.CollUtils;
 import com.learnhub.user.domain.po.UserDetail;
+import com.learnhub.user.domain.query.UserPageQuery;
 import com.learnhub.user.mapper.UserDetailMapper;
 import com.learnhub.user.service.IUserDetailService;
 import lombok.AllArgsConstructor;
@@ -37,5 +43,15 @@ public class UserDetailServiceImpl implements IUserDetailService {
     @Override
     public UserDTO queryUserByName(String username) {
         return userDetailMapper.queryUserByName(username);
+    }
+
+    @Override
+    public Page<UserDetail> queryUserDetailByPage(UserPageQuery pageQuery, UserType userType) {
+        // 1.分页条件
+        try (Page<UserDetail> page = pageQuery.toMpPageDefaultSortByCreateTimeDesc()) {
+            page.doSelectPage( () -> userDetailMapper.queryUserDetailByPage(pageQuery, userType));
+
+            return page;
+        }
     }
 }

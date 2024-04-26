@@ -1,1 +1,2 @@
 com.learnhub.api.config.FallbackConfig
+com.learnhub.api.config.RoleCacheConfig

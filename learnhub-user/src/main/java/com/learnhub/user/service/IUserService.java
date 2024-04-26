@@ -3,6 +3,7 @@ package com.learnhub.user.service;
 import com.learnhub.api.dto.user.LoginFormDTO;
 import com.learnhub.api.dto.user.UserDTO;
 import com.learnhub.common.domain.dto.LoginUserDTO;
+import com.learnhub.user.domain.vo.UserDetailVO;
 
 /**
  * @author liming
@@ -27,4 +28,11 @@ public interface IUserService {
      * @return 用户id
      */
     Long saveUser(UserDTO userDTO);
+
+    /**
+     * 获取当前用户信息
+     *
+     * @return 用户信息
+     */
+    UserDetailVO myInfo();
 }

@@ -6,6 +6,7 @@ import com.learnhub.common.domain.dto.LoginUserDTO;
 import com.learnhub.common.utils.BeanUtils;
 import com.learnhub.common.utils.CollUtils;
 import com.learnhub.user.domain.po.UserDetail;
+import com.learnhub.user.domain.vo.UserDetailVO;
 import com.learnhub.user.service.IUserDetailService;
 import com.learnhub.user.service.IUserService;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -71,5 +72,13 @@ public class UserController {
     public UserDTO queryUserDetailByName(String username) {
         return userDetailService.queryUserByName(username);
     }
+
+    @Operation(summary = "获取当前登录用户信息")
+    @GetMapping(value = "/me")
+    public UserDetailVO me() {
+        return userService.myInfo();
+    }
+
+
 
 }

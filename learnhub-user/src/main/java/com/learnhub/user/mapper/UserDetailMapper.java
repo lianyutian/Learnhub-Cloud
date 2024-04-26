@@ -1,7 +1,9 @@
 package com.learnhub.user.mapper;
 
 import com.learnhub.api.dto.user.UserDTO;
+import com.learnhub.common.enums.UserType;
 import com.learnhub.user.domain.po.UserDetail;
+import com.learnhub.user.domain.query.UserPageQuery;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -52,4 +54,13 @@ public interface UserDetailMapper {
      * @return 用户详情
      */
     UserDTO queryUserByName(String username);
+
+    /**
+     * 分页查询用户详情
+     *
+     * @param pageQuery 分页查询参数
+     * @param userType  用户类型
+     * @return 用户详情列表
+     */
+    List<UserDetail> queryUserDetailByPage(UserPageQuery pageQuery, UserType userType);
 }
