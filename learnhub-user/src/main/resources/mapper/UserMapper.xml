@@ -26,7 +26,7 @@
           and cell_phone = #{cellPhone}
     </select>
 
-    <select id="queryUserByName" resultType="com.learnhub.user.domain.po.User">
+    <select id="queryUserByPhone" resultType="com.learnhub.user.domain.po.User">
         select id,
                username,
                cell_phone,
@@ -34,7 +34,7 @@
                status,
                type
         from user
-        where username = #{username}
+        where cell_phone = #{phone}
     </select>
 
     <insert id="saveUser">

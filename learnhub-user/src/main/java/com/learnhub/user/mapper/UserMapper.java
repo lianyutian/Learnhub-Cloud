@@ -27,10 +27,10 @@ public interface UserMapper {
     void saveUser(User user);
 
     /**
-     * 根据用户名查询用户
+     * 根据手机号查询用户
      *
-     * @param username 用户名
+     * @param phone 手机号
      * @return 用户信息
      */
-    User queryUserByName(String username);
+    User queryUserByPhone(String phone);
 }

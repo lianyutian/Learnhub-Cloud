@@ -18,6 +18,7 @@
         <module>learnhub-remark</module>
         <module>learnhub-learning</module>
         <module>learnhub-promotion</module>
+        <module>learnhub-course</module>
     </modules>
 
     <!-- 继承 Spring Boot 父工程 -->
@@ -46,6 +47,7 @@
         <reflections.version>0.10.2</reflections.version>
         <javassist.version>3.29.2-GA</javassist.version>
         <xxl.job.version>2.4.0</xxl.job.version>
+        <mybatis.plus.version>3.5.6</mybatis.plus.version>
     </properties>
 
     <!-- 对依赖包进行管理 -->

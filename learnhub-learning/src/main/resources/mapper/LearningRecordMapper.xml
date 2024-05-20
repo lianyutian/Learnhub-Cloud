@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.learning.mapper.LearningRecordMapper">
+    <insert id="saveLearningRecord">
+        insert into learning_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lessonId != null">
+                lesson_id,
+            </if>
+            <if test="sectionId != null">
+                section_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="moment != null">
+                moment,
+            </if>
+            <if test="duration != null">
+                duration,
+            </if>
+            <if test="finished != null">
+                finished,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="finishTime != null">
+                finish_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateLearningRecord">
+        update learning_record
+        <set>
+            <if test="moment != null">
+                moment = #{moment},
+            </if>
+            <if test="finished">
+                finished = #{finished},
+                finish_time = #{commitTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateLearningRecordWithRecord">
+        update learning_record
+        <set>
+            <if test="record.moment != null">
+                moment = #{record.moment},
+            </if>
+            <if test="record.finished">
+                finished = #{record.finished},
+                finish_time = #{record.commitTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="queryLearningRecordByLessonId" resultType="com.learnhub.learning.domain.po.LearningRecord">
+        select *
+        from learning_record
+        where lesson_id = #{id}
+    </select>
+
+    <select id="queryLearningRecordByLessonIdAndSectionId"
+            resultType="com.learnhub.learning.domain.po.LearningRecord">
+        select *
+        from learning_record
+        where lesson_id = #{lessonId}
+          and section_id = #{sectionId}
+    </select>
+</mapper>

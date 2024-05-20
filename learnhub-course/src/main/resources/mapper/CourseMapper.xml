@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.course.mapper.CourseMapper">
+
+    <select id="queryUpCategoryIds" resultType="com.learnhub.course.domain.po.CategoryHierarchy">
+        select distinct first_cate_id  as 'firstCateId',
+                        second_cate_id as 'secondCateId',
+                        third_cate_id  as 'thirdCateId'
+        from course
+        where status = 2
+    </select>
+
+    <select id="queryCourseById" resultType="com.learnhub.course.domain.po.Course">
+        select *
+        from course
+        where id = #{id}
+    </select>
+
+    <select id="countCourseByNameAndId" resultType="java.lang.Integer">
+        select count(*)
+        from course
+        where name = #{name}
+        <if test="id != null">
+            and id != #{id}
+        </if>
+    </select>
+
+</mapper>

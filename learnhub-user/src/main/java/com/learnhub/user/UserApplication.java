@@ -17,6 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("com.learnhub.user.mapper")
+@EnableFeignClients(basePackages = "com.learnhub.api.client")
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

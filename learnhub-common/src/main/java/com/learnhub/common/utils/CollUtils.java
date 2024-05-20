@@ -2,6 +2,7 @@ package com.learnhub.common.utils;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.IterUtil;
+import com.learnhub.common.validate.Checker;
 
 
 import java.util.Collection;
@@ -149,5 +150,20 @@ public class CollUtils extends CollectionUtil {
             return null;
         }
         return function.apply(list.get(0));
+    }
+
+    /**
+     * 集合校验逻辑
+     *
+     * @param data 要校验的集合
+     * @param <T> 集合元素类型
+     */
+    public static  <T extends Checker<T>> void  check(List<T> data){
+        if(data == null){
+            return;
+        }
+        for (T t : data){
+            t.check();
+        }
     }
 }

@@ -134,8 +134,8 @@ public class UserServiceImpl implements IUserService {
         if (StringUtils.isBlank(username) && StringUtils.isBlank(cellPhone)) {
             throw new BadRequestException(INVALID_UN);
         }
-        // 2.根据用户名和手机号查询
-        User user = userMapper.queryUserByName(username);
+        // 2.根据收机号查询
+        User user = userMapper.queryUserByPhone(cellPhone);
         AssertUtils.isNotNull(user, INVALID_UN_OR_PW);
         // 3.校验是否禁用
         if (user.getStatus() == UserStatus.FROZEN) {

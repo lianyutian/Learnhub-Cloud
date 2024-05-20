@@ -8,7 +8,7 @@ package com.learnhub.user.constants;
 public interface UserErrorInfo {
     interface Msg {
         String INVALID_UN_OR_PW = "用户登录信息错误";
-        String INVALID_UN = "用户名或手机号不能为空";
+        String INVALID_UN = "手机号不能为空";
         String INVALID_USER_TYPE = "无效的用户类型";
         String PHONE_NOT_EXISTS = "手机号不存在";
         String ILLEGAL_LOGIN_TYPE = "无效的登录方式";

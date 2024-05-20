@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.course.mapper.CategoryMapper">
+
+    <select id="queryAllCategorys" resultType="com.learnhub.course.domain.po.Category">
+        SELECT id,
+               parent_id,
+               level,
+               priority,
+               status,
+               creater,
+               create_time,
+               updater,
+               update_time,
+               name
+        FROM category
+        order by priority, id desc
+    </select>
+
+    <select id="queryCategoryById" resultType="com.learnhub.course.domain.po.Category">
+        SELECT id,
+               parent_id,
+               status
+        FROM category
+        WHERE id = #{id}
+    </select>
+
+    <select id="queryUpCategoryIds" resultType="com.learnhub.course.domain.po.CategoryHierarchy">
+        select distinct first_cate_id  as 'firstCateId',
+                        second_cate_id as 'secondCateId',
+                        third_cate_id  as 'thirdCateId'
+        from course
+        where status = 2
+    </select>
+</mapper>

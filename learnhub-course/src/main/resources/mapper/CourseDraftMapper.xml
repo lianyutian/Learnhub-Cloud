@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learnhub.course.mapper.CourseDraftMapper">
+    <insert id="saveCourseDraft">
+
+    </insert>
+    <update id="updateCourseDraft">
+
+    </update>
+
+    <select id="countCourseByNameAndId" resultType="java.lang.Integer">
+        select count(*)
+        from course_draft
+        where
+        name= #{name}
+        and deleted=0
+        <if test='id!=null'>
+            id != #{id}
+            and
+        </if>
+    </select>
+</mapper>

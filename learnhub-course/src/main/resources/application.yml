@@ -1,0 +1,45 @@
+server:
+  port: 8086  #端口
+  tomcat:
+    uri-encoding: UTF-8   #服务编码
+spring:
+  profiles:
+    active: dev
+  application:
+    name: course-service
+  # mysql配置 start ====================================================================================================
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://117.72.71.187:3306/learnhub?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: learnhub
+    password: learnhub
+  # mysql配置 end ======================================================================================================
+  # redis配置 start ====================================================================================================
+  data:
+    redis:
+      host: 117.72.71.187
+      lettuce:
+        pool:
+          max-active: 8 # 最大连接数，负值表示没有限制，默认8
+          max-idle: 8   # 最大空闲连接，默认8
+          min-idle: 1   # 最小空闲连接，默认0
+          max-wait: 300 # 最大阻塞等待时间，负值表示没限制，默认-1
+      username: default
+      password: learnhub
+  # redis配置 end ======================================================================================================
+#mybatis-plus:
+mybatis-plus:
+  configuration:
+    # 默认的枚举处理器
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      logic-delete-field: deleted # mybatis逻辑删除字段
+      id-type: assign_id # 默认的id策略是雪花算法id
+learnhub:
+  auth:
+    resource:
+      enable: true
+
+
+

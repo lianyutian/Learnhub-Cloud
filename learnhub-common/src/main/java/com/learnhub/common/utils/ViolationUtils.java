@@ -1,6 +1,7 @@
 package com.learnhub.common.utils;
 
 import com.learnhub.common.exceptions.BadRequestException;
+import jakarta.validation.ConstraintViolation;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,15 +14,15 @@ import java.util.stream.Collectors;
  * @since 2024/3/15 16:23
  */
 public class ViolationUtils {
-//
-//    public static <T> void process(Set<ConstraintViolation<T>> violations) {
-//        if(CollUtils.isEmpty(violations)){
-//            return;
-//        }
-//        String message = violations
-//                .stream()
-//                .map(ConstraintViolation::getMessage)
-//                .collect(Collectors.joining("|"));
-//        throw new BadRequestException(message);
-//    }
+
+    public static <T> void process(Set<ConstraintViolation<T>> violations) {
+        if(CollUtils.isEmpty(violations)){
+            return;
+        }
+        String message = violations
+                .stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.joining("|"));
+        throw new BadRequestException(message);
+    }
 }

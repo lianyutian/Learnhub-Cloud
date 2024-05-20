@@ -50,18 +50,24 @@ docker run -it --name nacos \
 -v /var/lib/docker/volumes/nacos/conf/application.properties:/home/nacos/conf/application.properties \
 -v /var/lib/docker/volumes/nacos/data:/home/nacos/data \
 -v /var/lib/docker/volumes/nacos/logs:/home/nacos/logs \
--d nacos/nacos-server
+-d nacos/nacos-server:v2.2.0
 
-docker run -d --name nacos \
---ip 106.53.99.179 \
+docker run -d \
+--name nacos \
 -p 8848:8848 \
 -p 9848:9848 \
 -p 9849:9849 \
---env MODE=standalone \
--v /var/lib/docker/volumes/nacos/conf/application.properties:/home/nacos/conf/application \
--v /var/lib/docker/volumes/nacos/logs:/home/nacos/logs \
--v /var/lib/docker/volumes/nacos/data:/home/nacos/data \
-nacos/nacos-server
+--privileged=true \
+-e JVM_XMS=256m \
+-e JVM_XMX=256m \
+-e MODE=standalone \
+-e NACOS_AUTH_CACHE_ENABLE=enable \
+-e NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789 \
+-e NACOS_AUTH_IDENTITY_KEY=learnhub \
+-e NACOS_AUTH_IDENTITY_VALUE=learnhub \
+--restart=always \
+nacos/nacos-server:v2.2.1
+
 
 
 
